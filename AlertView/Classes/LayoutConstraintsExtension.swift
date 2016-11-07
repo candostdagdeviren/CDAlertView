@@ -9,18 +9,18 @@
 import Foundation
 
 internal extension UIView {
-    public func alignToTop(of view: UIView, margin: CGFloat) {
+    public func alignToTop(of view: UIView, margin: CGFloat, multiplier: CGFloat) {
         self.superview!.addConstraint(NSLayoutConstraint(item: self,
-                                  attribute: .top,
-                                  relatedBy: .equal,
-                                  toItem: view,
-                                  attribute: .top,
-                                  multiplier: 1,
-                                  constant: margin))
+                                                         attribute: .top,
+                                                         relatedBy: .equal,
+                                                         toItem: view,
+                                                         attribute: .top,
+                                                         multiplier: multiplier,
+                                                         constant: margin))
     }
 
-    public func alignTopToParent(with margin: CGFloat) {
-        alignToTop(of: self.superview!, margin: margin)
+    public func alignTopToParent(with margin: CGFloat, multiplier: CGFloat) {
+        alignToTop(of: self.superview!, margin: margin, multiplier: multiplier)
     }
 
     public func alignBottomToParent(with margin: CGFloat) {
@@ -29,12 +29,12 @@ internal extension UIView {
 
     public func alignToBottom(of view: UIView, margin: CGFloat) {
         self.superview!.addConstraint(NSLayoutConstraint(item: self,
-                                                        attribute: .bottom,
-                                                        relatedBy: .equal,
-                                                        toItem: view,
-                                                        attribute: .bottom,
-                                                        multiplier: 1,
-                                                        constant: -margin))
+                                                         attribute: .bottom,
+                                                         relatedBy: .equal,
+                                                         toItem: view,
+                                                         attribute: .bottom,
+                                                         multiplier: 1,
+                                                         constant: -margin))
     }
 
     public func alignLeftToParent(with margin: CGFloat) {
@@ -67,7 +67,7 @@ internal extension UIView {
 
     public func alignToParent(with margin: CGFloat) {
         translatesAutoresizingMaskIntoConstraints = false
-        alignTopToParent(with: margin)
+        alignTopToParent(with: margin, multiplier: 1)
         alignLeftToParent(with: margin)
         alignRightToParent(with: margin)
         alignBottomToParent(with: margin)
@@ -85,22 +85,22 @@ internal extension UIView {
 
     public func setMaxHeight(_ height: CGFloat) {
         self.addConstraint(NSLayoutConstraint(item: self,
-                                                         attribute: .height,
-                                                         relatedBy: .lessThanOrEqual,
-                                                         toItem: nil,
-                                                         attribute: .notAnAttribute,
-                                                         multiplier: 1,
-                                                         constant: height))
+                                              attribute: .height,
+                                              relatedBy: .lessThanOrEqual,
+                                              toItem: nil,
+                                              attribute: .notAnAttribute,
+                                              multiplier: 1,
+                                              constant: height))
     }
 
     public func setWidth(_ width: CGFloat) {
         self.addConstraint(NSLayoutConstraint(item: self,
-                                                         attribute: .width,
-                                                         relatedBy: .equal,
-                                                         toItem: nil,
-                                                         attribute: .notAnAttribute,
-                                                         multiplier: 1,
-                                                         constant: width))
+                                              attribute: .width,
+                                              relatedBy: .equal,
+                                              toItem: nil,
+                                              attribute: .notAnAttribute,
+                                              multiplier: 1,
+                                              constant: width))
     }
 
     public func centerHorizontally() {

@@ -38,7 +38,7 @@ internal class AlertHeaderView: UIView {
         addSubview(imageView)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.centerHorizontally()
-        imageView.alignToTop(of: self, margin: 16)
+        imageView.alignToTop(of: self, margin: 16, multiplier: 1)
         imageView.setHeight(24)
         imageView.setWidth(24)
     }

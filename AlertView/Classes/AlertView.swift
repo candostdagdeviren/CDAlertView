@@ -111,7 +111,6 @@ open class AlertView: UIView {
     }
 
     public func show(with completion:((AlertView) -> Swift.Void)?) {
-        assert(actions.count != 0, "There should be at least one action button")
         UIApplication.shared.keyWindow?.addSubview(self)
         self.alignToParent(with: 0)
         self.addSubview(self.backgroundView)
@@ -150,6 +149,7 @@ open class AlertView: UIView {
         createStackView()
         createTitleLabel()
         createMessageLabel()
+
         popupView.translatesAutoresizingMaskIntoConstraints = false
         popupView.centerHorizontally()
         popupView.centerVertically()
@@ -157,6 +157,16 @@ open class AlertView: UIView {
         popupView.setMaxHeight(430)
         popupView.sizeToFit()
         popupView.layoutIfNeeded()
+        if actions.count == 0 {
+            roundBottomOfCoverView()
+        }
+    }
+
+    private func roundBottomOfCoverView() {
+        let roundCornersPath = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: Int(constants.popupWidth), height: Int(coverView.frame.size.height)), byRoundingCorners: [.bottomLeft, .bottomRight], cornerRadii: CGSize(width: 8.0, height: 8.0))
+        let roundLayer = CAShapeLayer()
+        roundLayer.path = roundCornersPath.cgPath
+        coverView.layer.mask = roundLayer
     }
 
     private func createHeaderView() {
@@ -164,7 +174,7 @@ open class AlertView: UIView {
         headerView.backgroundColor = UIColor.clear
         popupView.addSubview(headerView)
         headerView.translatesAutoresizingMaskIntoConstraints = false
-        headerView.alignTopToParent(with: 0)
+        headerView.alignTopToParent(with: 0, multiplier: 1)
         headerView.alignLeftToParent(with: 0)
         headerView.alignRightToParent(with: 0)
         headerView.setHeight(constants.headerHeight)
@@ -182,21 +192,24 @@ open class AlertView: UIView {
         buttonView.alignBottomToParent(with: 0)
         buttonView.alignLeftToParent(with: 0)
         buttonView.alignRightToParent(with: 0)
-        buttonView.setHeight(CGFloat(buttonsHeight))
+        if actions.count == 0 {
+            buttonView.setHeight(0)
+        } else {
+            buttonView.setHeight(CGFloat(buttonsHeight))
+            let backgroundColoredView = UIView(frame: .zero)
+            backgroundColoredView.backgroundColor = actionSeparatorColor
+            buttonView.addSubview(backgroundColoredView)
+            backgroundColoredView.alignToParent(with: 0)
 
-        let backgroundColoredView = UIView(frame: .zero)
-        backgroundColoredView.backgroundColor = actionSeparatorColor
-        buttonView.addSubview(backgroundColoredView)
-        backgroundColoredView.alignToParent(with: 0)
-
-        buttonContainer.spacing = 1
-        buttonContainer.axis = .horizontal
-        backgroundColoredView.addSubview(buttonContainer)
-        buttonContainer.translatesAutoresizingMaskIntoConstraints = false
-        buttonContainer.alignTopToParent(with: 1)
-        buttonContainer.alignBottomToParent(with: 0)
-        buttonContainer.alignLeftToParent(with: 0)
-        buttonContainer.alignRightToParent(with: 0)
+            buttonContainer.spacing = 1
+            buttonContainer.axis = .horizontal
+            backgroundColoredView.addSubview(buttonContainer)
+            buttonContainer.translatesAutoresizingMaskIntoConstraints = false
+            let constraint = buttonContainer.alignTopToParent(with: 1, multiplier: 0.5)
+            buttonContainer.alignBottomToParent(with: 0)
+            buttonContainer.alignLeftToParent(with: 0)
+            buttonContainer.alignRightToParent(with: 0)
+        }
     }
 
     private func createStackView() {
@@ -212,7 +225,7 @@ open class AlertView: UIView {
         contentStackView.spacing = 8
         coverView.addSubview(contentStackView)
         contentStackView.translatesAutoresizingMaskIntoConstraints = false
-        contentStackView.alignTopToParent(with: 0)
+        contentStackView.alignTopToParent(with: 0, multiplier: 1)
         contentStackView.alignBottomToParent(with: 16)
         contentStackView.alignRightToParent(with: 16)
         contentStackView.alignLeftToParent(with: 16)
