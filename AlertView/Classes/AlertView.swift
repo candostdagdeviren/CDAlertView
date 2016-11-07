@@ -49,11 +49,16 @@ open class AlertViewAction: NSObject {
 
 open class AlertView: UIView {
 
-    public var actionSeparatorColor: UIColor? = UIColor(red: 50/255, green: 51/255, blue: 53/255, alpha: 0.12)
+    public var actionSeparatorColor: UIColor? = UIColor(red: 50/255,
+                                                        green: 51/255,
+                                                        blue: 53/255,
+                                                        alpha: 0.12)
 
     private struct AlertViewConstants {
         let headerHeight: CGFloat = 56
         let popupWidth: CGFloat = 256
+        let activeVelocity: CGFloat = 150
+        let minVelocity: CGFloat = 300
     }
 
 
@@ -62,7 +67,7 @@ open class AlertView: UIView {
             return self.actions.count > 0 ? 44 : 0
         }
     }
-
+    private var popupViewInitialFrame: CGRect!
     private let constants = AlertViewConstants()
     private var backgroundView: UIView = UIView(frame: .zero)
     private var popupView: UIView = UIView(frame: .zero)
@@ -77,7 +82,9 @@ open class AlertView: UIView {
     private var type: AlertViewType!
     private lazy var actions: [AlertViewAction] = [AlertViewAction]()
 
-    public convenience init(title: String?, message: String?, type: AlertViewType? = .notification) {
+    public convenience init(title: String?,
+                            message: String?,
+                            type: AlertViewType? = .notification) {
         self.init(frame: .zero)
 
         self.type = type
@@ -91,6 +98,8 @@ open class AlertView: UIView {
         }
 
         self.type = type
+
+
     }
 
     override open func layoutSubviews() {
@@ -103,8 +112,10 @@ open class AlertView: UIView {
         let path = UIBezierPath()
         path.move(to: CGPoint(x: 0.0, y: popupView.bounds.size.height))
         path.addLine(to: CGPoint(x: 0, y: constants.headerHeight))
-        path.addLine(to: CGPoint(x: popupView.bounds.size.width, y: CGFloat(constants.headerHeight-5)))
-        path.addLine(to: CGPoint(x: popupView.bounds.size.width, y: popupView.bounds.size.height))
+        path.addLine(to: CGPoint(x: popupView.bounds.size.width,
+                                 y: CGFloat(constants.headerHeight-5)))
+        path.addLine(to: CGPoint(x: popupView.bounds.size.width,
+                                 y: popupView.bounds.size.height))
         path.close()
         popupView.layer.shadowPath = path.cgPath
         popupView.layer.masksToBounds = false
@@ -117,20 +128,26 @@ open class AlertView: UIView {
         backgroundView.alignToParent(with: 0)
         self.createViews()
         self.reloadActionButtons()
+        popupViewInitialFrame = popupView.frame
         completionBlock = completion
     }
 
-    public func hide() {
-        UIView.animate(withDuration: 0.2, animations: {
-            self.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
-            self.alpha = 0
-        }, completion: { (finished) in
-            if finished {
-                self.removeFromSuperview()
-                if let completion = self.completionBlock {
-                    completion(self)
-                }
+    public func hide(isPopupAnimated: Bool) {
+        UIView.animate(withDuration: 0.5, animations: { [unowned self] in
+            if isPopupAnimated {
+                var offScreenCenter = self.popupView.center
+                offScreenCenter.y += self.constants.minVelocity * 3
+                self.popupView.center = offScreenCenter
             }
+            self.transform = CGAffineTransform(translationX: 0.5, y: 0.5)
+            self.alpha = 0
+            }, completion: { (finished) in
+                if finished {
+                    self.removeFromSuperview()
+                    if let completion = self.completionBlock {
+                        completion(self)
+                    }
+                }
         })
     }
 
@@ -139,7 +156,59 @@ open class AlertView: UIView {
         actions.append(action)
     }
 
+    open override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        touches.forEach { (touch) in
+            if touch.view == self.backgroundView {
+                self.hide(isPopupAnimated: true)
+            }
+        }
+    }
+
+    func popupMoved(recognizer: UIPanGestureRecognizer) {
+        let location = recognizer.location(in: backgroundView)
+        UIView.animate(withDuration: 0.1, animations: {
+            self.popupView.center = location
+        })
+
+        if recognizer.state == .ended {
+            let location = recognizer.location(in: backgroundView)
+            let origin = CGPoint(x: backgroundView.center.x - popupViewInitialFrame.size.width/2,
+                                 y: backgroundView.center.y-constants.headerHeight - popupViewInitialFrame.size.height/2-constants.headerHeight)
+            let velocity = recognizer.velocity(in: backgroundView)
+            if !CGRect(origin: origin, size: popupViewInitialFrame.size).contains(location) ||
+                (velocity.x > constants.activeVelocity || velocity.y > constants.activeVelocity) {
+                UIView.animate(withDuration: 1, animations: {
+                    self.popupView.center = self.calculatePopupViewOffScreenCenter(from: velocity)
+                    self.hide(isPopupAnimated: false)
+                })
+            } else {
+                UIView.animate(withDuration: 0.5, animations: {
+                    self.popupView.center = self.backgroundView.center
+                })
+            }
+        }
+    }
+
     // MARK: Private
+
+    private func calculatePopupViewOffScreenCenter(from velocity: CGPoint) -> CGPoint {
+        var velocityX = velocity.x
+        var velocityY = velocity.y
+        var offScreenCenter = popupView.center
+
+        velocityX = velocityX >= 0 ?
+            (velocityX < constants.minVelocity ? constants.minVelocity : velocityX) :
+            (velocityX > -constants.minVelocity ? -constants.minVelocity : velocityX)
+
+        velocityY = velocityY >= 0 ?
+            (velocityY < constants.minVelocity ? constants.minVelocity : velocityY) :
+            (velocityY > -constants.minVelocity ? -constants.minVelocity : velocityY)
+
+        offScreenCenter.x += velocityX
+        offScreenCenter.y += velocityY
+
+        return offScreenCenter
+    }
 
     private func createViews() {
         popupView.backgroundColor = UIColor.clear
@@ -159,11 +228,21 @@ open class AlertView: UIView {
         popupView.layoutIfNeeded()
         if actions.count == 0 {
             roundBottomOfCoverView()
+
+            let gestureRecognizer = UIPanGestureRecognizer(target: self,
+                                                           action: #selector(popupMoved(recognizer:)))
+            popupView.addGestureRecognizer(gestureRecognizer)
         }
     }
 
     private func roundBottomOfCoverView() {
-        let roundCornersPath = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: Int(constants.popupWidth), height: Int(coverView.frame.size.height)), byRoundingCorners: [.bottomLeft, .bottomRight], cornerRadii: CGSize(width: 8.0, height: 8.0))
+        let roundCornersPath = UIBezierPath(roundedRect: CGRect(x: 0,
+                                                                y: 0,
+                                                                width: Int(constants.popupWidth),
+                                                                height: Int(coverView.frame.size.height)),
+                                            byRoundingCorners: [.bottomLeft, .bottomRight],
+                                            cornerRadii: CGSize(width: 8.0,
+                                                                height: 8.0))
         let roundLayer = CAShapeLayer()
         roundLayer.path = roundCornersPath.cgPath
         coverView.layer.mask = roundLayer
@@ -183,7 +262,12 @@ open class AlertView: UIView {
     private func createButtonContainer() {
         buttonView.backgroundColor = UIColor.clear
         buttonView.layer.masksToBounds = true
-        let roundCornersPath = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: Int(constants.popupWidth), height: buttonsHeight), byRoundingCorners: [.bottomLeft, .bottomRight], cornerRadii: CGSize(width: 8.0, height: 8.0))
+        let roundCornersPath = UIBezierPath(roundedRect: CGRect(x: 0,
+                                                                y: 0,
+                                                                width: Int(constants.popupWidth),
+                                                                height: buttonsHeight),
+                                            byRoundingCorners: [.bottomLeft, .bottomRight],
+                                            cornerRadii: CGSize(width: 8.0, height: 8.0))
         let roundLayer = CAShapeLayer()
         roundLayer.path = roundCornersPath.cgPath
         buttonView.layer.mask = roundLayer
@@ -248,6 +332,7 @@ open class AlertView: UIView {
     }
 
     private func reloadActionButtons() {
+        guard actions.count == 0 else { return }
         for action in buttonContainer.arrangedSubviews {
             buttonContainer.removeArrangedSubview(action)
         }
@@ -273,6 +358,6 @@ open class AlertView: UIView {
 
 extension AlertView: AlertViewActionDelegate {
     internal func didTap(action: AlertViewAction) {
-        self.hide()
+        self.hide(isPopupAnimated: true)
     }
 }
