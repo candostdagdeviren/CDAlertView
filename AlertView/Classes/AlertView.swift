@@ -9,7 +9,7 @@
 import Foundation
 
 public enum AlertViewType {
-    case error, warning, success, notification
+    case error, warning, success, notification, empty
 }
 
 fileprivate protocol AlertViewActionDelegate: class {
@@ -29,7 +29,7 @@ open class AlertViewAction: NSObject {
     public convenience init(title: String?,
                             font: UIFont? = UIFont.systemFont(ofSize: 17),
                             textColor: UIColor? = UIColor(red: 27/255, green: 169/255, blue: 225/255, alpha: 1),
-                            backgroundColor: UIColor? = UIColor.white.withAlphaComponent(0.9),
+                            backgroundColor: UIColor? = nil,
                             handler: ((AlertViewAction) -> Swift.Void)? = nil) {
         self.init()
         buttonTitle = title
@@ -49,10 +49,39 @@ open class AlertViewAction: NSObject {
 
 open class AlertView: UIView {
 
-    public var actionSeparatorColor: UIColor? = UIColor(red: 50/255,
+    public var actionSeparatorColor: UIColor = UIColor(red: 50/255,
                                                         green: 51/255,
                                                         blue: 53/255,
                                                         alpha: 0.12)
+    public var titleTextColor: UIColor = UIColor(red: 50/255,
+                                                 green: 51/255,
+                                                 blue: 53/255,
+                                                 alpha: 1)
+
+    public var messageTextColor: UIColor = UIColor(red: 50/255,
+                                                 green: 51/255,
+                                                 blue: 53/255,
+                                                 alpha: 1)
+
+    public var titleFont: UIFont = UIFont.boldSystemFont(ofSize: 17) {
+        didSet {
+            titleLabel.font = titleFont
+        }
+    }
+    
+    public var messageFont: UIFont = UIFont.systemFont(ofSize: 13) {
+        didSet {
+            messageLabel.font = messageFont
+        }
+    }
+
+    public var hasShadow: Bool = true
+
+    public var headerCircleImage: UIImage? = nil
+
+    public var alertBackgroundColor: UIColor = UIColor.white.withAlphaComponent(0.9)
+
+    public var circleFillColor: UIColor? = nil
 
     private struct AlertViewConstants {
         let headerHeight: CGFloat = 56
@@ -61,12 +90,12 @@ open class AlertView: UIView {
         let minVelocity: CGFloat = 300
     }
 
-
     private var buttonsHeight: Int {
         get {
             return self.actions.count > 0 ? 44 : 0
         }
     }
+
     private var popupViewInitialFrame: CGRect!
     private let constants = AlertViewConstants()
     private var backgroundView: UIView = UIView(frame: .zero)
@@ -84,7 +113,7 @@ open class AlertView: UIView {
 
     public convenience init(title: String?,
                             message: String?,
-                            type: AlertViewType? = .notification) {
+                            type: AlertViewType? = .empty) {
         self.init(frame: .zero)
 
         self.type = type
@@ -98,36 +127,35 @@ open class AlertView: UIView {
         }
 
         self.type = type
-
-
     }
 
     override open func layoutSubviews() {
         super.layoutSubviews()
-        popupView.layer.shadowColor = UIColor.black.cgColor
-        popupView.layer.shadowOpacity = 0.2
-        popupView.layer.shadowRadius = 4
-        popupView.layer.shadowOffset = CGSize.zero
-        popupView.layer.masksToBounds = false
-        let path = UIBezierPath()
-        path.move(to: CGPoint(x: 0.0, y: popupView.bounds.size.height))
-        path.addLine(to: CGPoint(x: 0, y: constants.headerHeight))
-        path.addLine(to: CGPoint(x: popupView.bounds.size.width,
-                                 y: CGFloat(constants.headerHeight-5)))
-        path.addLine(to: CGPoint(x: popupView.bounds.size.width,
-                                 y: popupView.bounds.size.height))
-        path.close()
-        popupView.layer.shadowPath = path.cgPath
-        popupView.layer.masksToBounds = false
+        if hasShadow {
+            popupView.layer.shadowColor = UIColor.black.cgColor
+            popupView.layer.shadowOpacity = 0.2
+            popupView.layer.shadowRadius = 4
+            popupView.layer.shadowOffset = CGSize.zero
+            popupView.layer.masksToBounds = false
+            let path = UIBezierPath()
+            path.move(to: CGPoint(x: 0.0, y: popupView.bounds.size.height))
+            path.addLine(to: CGPoint(x: 0, y: constants.headerHeight))
+            path.addLine(to: CGPoint(x: popupView.bounds.size.width,
+                                     y: CGFloat(constants.headerHeight-5)))
+            path.addLine(to: CGPoint(x: popupView.bounds.size.width,
+                                     y: popupView.bounds.size.height))
+            path.close()
+            popupView.layer.shadowPath = path.cgPath
+        }
     }
 
     public func show(with completion:((AlertView) -> Swift.Void)?) {
         UIApplication.shared.keyWindow?.addSubview(self)
-        self.alignToParent(with: 0)
-        self.addSubview(self.backgroundView)
+        alignToParent(with: 0)
+        addSubview(backgroundView)
         backgroundView.alignToParent(with: 0)
-        self.createViews()
-        self.reloadActionButtons()
+        createViews()
+        reloadActionButtons()
         popupViewInitialFrame = popupView.frame
         completionBlock = completion
     }
@@ -157,9 +185,11 @@ open class AlertView: UIView {
     }
 
     open override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        touches.forEach { (touch) in
-            if touch.view == self.backgroundView {
-                self.hide(isPopupAnimated: true)
+        if actions.count == 0 {
+            touches.forEach { (touch) in
+                if touch.view == self.backgroundView {
+                    self.hide(isPopupAnimated: true)
+                }
             }
         }
     }
@@ -186,6 +216,10 @@ open class AlertView: UIView {
                     self.popupView.center = self.backgroundView.center
                 })
             }
+        } else if recognizer.state == .cancelled {
+            UIView.animate(withDuration: 1, animations: { 
+                self.popupView.center = self.backgroundView.center
+            })
         }
     }
 
@@ -208,6 +242,21 @@ open class AlertView: UIView {
         offScreenCenter.y += velocityY
 
         return offScreenCenter
+    }
+
+
+
+    private func roundBottomOfCoverView() {
+        let roundCornersPath = UIBezierPath(roundedRect: CGRect(x: 0,
+                                                                y: 0,
+                                                                width: Int(constants.popupWidth),
+                                                                height: Int(coverView.frame.size.height)),
+                                            byRoundingCorners: [.bottomLeft, .bottomRight],
+                                            cornerRadii: CGSize(width: 8.0,
+                                                                height: 8.0))
+        let roundLayer = CAShapeLayer()
+        roundLayer.path = roundCornersPath.cgPath
+        coverView.layer.mask = roundLayer
     }
 
     private func createViews() {
@@ -235,22 +284,13 @@ open class AlertView: UIView {
         }
     }
 
-    private func roundBottomOfCoverView() {
-        let roundCornersPath = UIBezierPath(roundedRect: CGRect(x: 0,
-                                                                y: 0,
-                                                                width: Int(constants.popupWidth),
-                                                                height: Int(coverView.frame.size.height)),
-                                            byRoundingCorners: [.bottomLeft, .bottomRight],
-                                            cornerRadii: CGSize(width: 8.0,
-                                                                height: 8.0))
-        let roundLayer = CAShapeLayer()
-        roundLayer.path = roundCornersPath.cgPath
-        coverView.layer.mask = roundLayer
-    }
-
     private func createHeaderView() {
         headerView = AlertHeaderView(type: type)
         headerView.backgroundColor = UIColor.clear
+        headerView.hasShadow = hasShadow
+        headerView.alertBackgroundColor = alertBackgroundColor
+        headerView.circleFillColor = circleFillColor
+        headerView.headerCircleImage = headerCircleImage
         popupView.addSubview(headerView)
         headerView.translatesAutoresizingMaskIntoConstraints = false
         headerView.alignTopToParent(with: 0, multiplier: 1)
@@ -297,7 +337,7 @@ open class AlertView: UIView {
     }
 
     private func createStackView() {
-        coverView.backgroundColor = UIColor.white.withAlphaComponent(0.9)
+        coverView.backgroundColor = alertBackgroundColor
         popupView.addSubview(coverView)
         coverView.translatesAutoresizingMaskIntoConstraints = false
         coverView.alignLeftToParent(with: 0)
@@ -319,6 +359,7 @@ open class AlertView: UIView {
         titleLabel.numberOfLines = 0
         titleLabel.textAlignment = .center
         titleLabel.setMaxHeight(100)
+        titleLabel.textColor = titleTextColor
         titleLabel.font = UIFont.boldSystemFont(ofSize: 17)
         contentStackView.addArrangedSubview(titleLabel)
     }
@@ -326,13 +367,14 @@ open class AlertView: UIView {
     private func createMessageLabel() {
         messageLabel.numberOfLines = 0
         messageLabel.textAlignment = .center
+        messageLabel.textColor = messageTextColor
         messageLabel.setMaxHeight(290)
         messageLabel.font = UIFont.systemFont(ofSize: 13)
         contentStackView.addArrangedSubview(messageLabel)
     }
 
     private func reloadActionButtons() {
-        guard actions.count == 0 else { return }
+        guard actions.count != 0 else { return }
         for action in buttonContainer.arrangedSubviews {
             buttonContainer.removeArrangedSubview(action)
         }
@@ -340,7 +382,12 @@ open class AlertView: UIView {
         for action in actions {
             action.delegate = self
             let button = UIButton(type: .system)
-            button.backgroundColor = action.buttonBackgroundColor
+            if let bc = action.buttonBackgroundColor {
+                button.backgroundColor = bc
+            } else {
+                button.backgroundColor = alertBackgroundColor
+            }
+
             button.setTitle(action.buttonTitle, for: .normal)
             button.setTitleColor(action.buttonTextColor, for: .normal)
             button.titleLabel?.font = action.buttonFont
