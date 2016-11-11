@@ -24,6 +24,10 @@ pod "AlertView"
 
 Candost Dagdeviren, candostdagdeviren@gmail.com
 
+### Icons
+
+Thanks to [Icons8](https://icons8.com/) for beautiful icons.
+
 ## License
 
 AlertView is available under the MIT license. See the LICENSE file for more info.
