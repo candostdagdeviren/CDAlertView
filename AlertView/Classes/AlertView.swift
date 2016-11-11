@@ -75,7 +75,7 @@ open class AlertView: UIView {
         }
     }
 
-    public var isVertical: Bool = true
+    public var isActionButtonsVertical: Bool = false
 
     public var hasShadow: Bool = true
 
@@ -87,7 +87,7 @@ open class AlertView: UIView {
 
     private struct AlertViewConstants {
         let headerHeight: CGFloat = 56
-        let popupWidth: CGFloat = 256
+        let popupWidth: CGFloat = 255
         let activeVelocity: CGFloat = 150
         let minVelocity: CGFloat = 300
     }
@@ -156,8 +156,12 @@ open class AlertView: UIView {
         alignToParent(with: 0)
         addSubview(backgroundView)
         backgroundView.alignToParent(with: 0)
+        if !isActionButtonsVertical && actions.count > 3 {
+            debugPrint("AlertView: You can't use more than 3 actions in horizontal mode. If you need more than 3 buttons, consider using vertical alignment for buttons. Setting vertical alignments for buttons is available via isActionButtonsVertical property of AlertView")
+            actions.removeSubrange(3..<actions.count)
+        }
         createViews()
-        reloadActionButtons()
+        loadActionButtons()
         popupViewInitialFrame = popupView.frame
         completionBlock = completion
     }
@@ -182,7 +186,6 @@ open class AlertView: UIView {
     }
 
     public func add(action: AlertViewAction) {
-        assert(actions.count < 3, "There can't be more than 3 actions")
         actions.append(action)
     }
 
@@ -305,7 +308,18 @@ open class AlertView: UIView {
         var height = buttonsHeight
         buttonView.backgroundColor = UIColor.clear
         buttonView.layer.masksToBounds = true
-
+        if isActionButtonsVertical {
+            height = buttonsHeight * actions.count
+        }
+        let roundCornersPath = UIBezierPath(roundedRect: CGRect(x: 0,
+                                                                y: 0,
+                                                                width: Int(constants.popupWidth),
+                                                                height: height),
+                                            byRoundingCorners: [.bottomLeft, .bottomRight],
+                                            cornerRadii: CGSize(width: 8.0, height: 8.0))
+        let roundLayer = CAShapeLayer()
+        roundLayer.path = roundCornersPath.cgPath
+        buttonView.layer.mask = roundLayer
         popupView.addSubview(buttonView)
         buttonView.translatesAutoresizingMaskIntoConstraints = false
         buttonView.alignBottomToParent(with: 0)
@@ -321,8 +335,7 @@ open class AlertView: UIView {
             backgroundColoredView.alignToParent(with: 0)
 
             buttonContainer.spacing = 1
-            if isVertical {
-                height = buttonsHeight * actions.count
+            if isActionButtonsVertical {
                 buttonContainer.axis = .vertical
             } else {
                 buttonContainer.axis = .horizontal
@@ -330,21 +343,11 @@ open class AlertView: UIView {
             buttonView.setHeight(CGFloat(height))
             backgroundColoredView.addSubview(buttonContainer)
             buttonContainer.translatesAutoresizingMaskIntoConstraints = false
-            let constraint = buttonContainer.alignTopToParent(with: 1, multiplier: 0.5)
+            buttonContainer.alignTopToParent(with: 1, multiplier: 0.5)
             buttonContainer.alignBottomToParent(with: 0)
             buttonContainer.alignLeftToParent(with: 0)
             buttonContainer.alignRightToParent(with: 0)
         }
-
-        let roundCornersPath = UIBezierPath(roundedRect: CGRect(x: 0,
-                                                                y: 0,
-                                                                width: Int(constants.popupWidth),
-                                                                height: height),
-                                            byRoundingCorners: [.bottomLeft, .bottomRight],
-                                            cornerRadii: CGSize(width: 8.0, height: 8.0))
-        let roundLayer = CAShapeLayer()
-        roundLayer.path = roundCornersPath.cgPath
-        buttonView.layer.mask = roundLayer
     }
 
     private func createStackView() {
@@ -384,7 +387,7 @@ open class AlertView: UIView {
         contentStackView.addArrangedSubview(messageLabel)
     }
 
-    private func reloadActionButtons() {
+    private func loadActionButtons() {
         guard actions.count != 0 else { return }
         for action in buttonContainer.arrangedSubviews {
             buttonContainer.removeArrangedSubview(action)
@@ -408,7 +411,12 @@ open class AlertView: UIView {
             button.addTarget(action, action: #selector(action.didTap), for: .touchUpInside)
             buttonContainer.addArrangedSubview(button)
             button.translatesAutoresizingMaskIntoConstraints = false
-            button.setWidth(buttonContainer.frame.size.width/CGFloat(actions.count))
+            if isActionButtonsVertical {
+                button.setWidth(buttonContainer.frame.size.width)
+            } else {
+                button.setWidth((buttonContainer.frame.size.width-CGFloat(actions.count-1))/CGFloat(actions.count))
+            }
+
             button.setHeight(CGFloat(buttonsHeight - 1))
         }
     }
