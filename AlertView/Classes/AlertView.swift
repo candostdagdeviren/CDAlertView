@@ -75,6 +75,8 @@ open class AlertView: UIView {
         }
     }
 
+    public var isVertical: Bool = true
+
     public var hasShadow: Bool = true
 
     public var headerCircleImage: UIImage? = nil
@@ -300,17 +302,10 @@ open class AlertView: UIView {
     }
 
     private func createButtonContainer() {
+        var height = buttonsHeight
         buttonView.backgroundColor = UIColor.clear
         buttonView.layer.masksToBounds = true
-        let roundCornersPath = UIBezierPath(roundedRect: CGRect(x: 0,
-                                                                y: 0,
-                                                                width: Int(constants.popupWidth),
-                                                                height: buttonsHeight),
-                                            byRoundingCorners: [.bottomLeft, .bottomRight],
-                                            cornerRadii: CGSize(width: 8.0, height: 8.0))
-        let roundLayer = CAShapeLayer()
-        roundLayer.path = roundCornersPath.cgPath
-        buttonView.layer.mask = roundLayer
+
         popupView.addSubview(buttonView)
         buttonView.translatesAutoresizingMaskIntoConstraints = false
         buttonView.alignBottomToParent(with: 0)
@@ -319,14 +314,20 @@ open class AlertView: UIView {
         if actions.count == 0 {
             buttonView.setHeight(0)
         } else {
-            buttonView.setHeight(CGFloat(buttonsHeight))
+
             let backgroundColoredView = UIView(frame: .zero)
             backgroundColoredView.backgroundColor = actionSeparatorColor
             buttonView.addSubview(backgroundColoredView)
             backgroundColoredView.alignToParent(with: 0)
 
             buttonContainer.spacing = 1
-            buttonContainer.axis = .horizontal
+            if isVertical {
+                height = buttonsHeight * actions.count
+                buttonContainer.axis = .vertical
+            } else {
+                buttonContainer.axis = .horizontal
+            }
+            buttonView.setHeight(CGFloat(height))
             backgroundColoredView.addSubview(buttonContainer)
             buttonContainer.translatesAutoresizingMaskIntoConstraints = false
             let constraint = buttonContainer.alignTopToParent(with: 1, multiplier: 0.5)
@@ -334,6 +335,16 @@ open class AlertView: UIView {
             buttonContainer.alignLeftToParent(with: 0)
             buttonContainer.alignRightToParent(with: 0)
         }
+
+        let roundCornersPath = UIBezierPath(roundedRect: CGRect(x: 0,
+                                                                y: 0,
+                                                                width: Int(constants.popupWidth),
+                                                                height: height),
+                                            byRoundingCorners: [.bottomLeft, .bottomRight],
+                                            cornerRadii: CGSize(width: 8.0, height: 8.0))
+        let roundLayer = CAShapeLayer()
+        roundLayer.path = roundCornersPath.cgPath
+        buttonView.layer.mask = roundLayer
     }
 
     private func createStackView() {
