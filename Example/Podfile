@@ -1,8 +1,8 @@
 use_frameworks!
 platform :ios, '9.0'
 inhibit_all_warnings!
-target 'AlertView_Example' do
-  pod 'AlertView', :path => '../'
+target ‘CDAlertView_Example' do
+  pod 'CDAlertView', :path => '../'
 
   post_install do |installer|
     installer.pods_project.targets.each do |target|
@@ -15,7 +15,7 @@ target 'AlertView_Example' do
       end
     end
   end
-  target 'AlertView_Tests' do
+  target ‘CDAlertView_Tests' do
     inherit! :search_paths
 
     

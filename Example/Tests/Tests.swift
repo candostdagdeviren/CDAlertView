@@ -1,6 +1,6 @@
 import UIKit
 import XCTest
-import AlertView
+import CDAlertView
 
 class Tests: XCTestCase {
     

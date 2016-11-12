@@ -1,6 +1,6 @@
 //
-//  AlertHeaderView.swift
-//  AlertView
+//  CDAlertHeaderView.swift
+//  CDAlertView
 //
 //  Created by Candost Dagdeviren on 10/30/2016.
 //  Copyright (c) 2016 Candost Dagdeviren. All rights reserved.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-internal class AlertHeaderView: UIView {
+internal class CDAlertHeaderView: UIView {
 
     internal var circleFillColor: UIColor? {
         didSet {
@@ -28,10 +28,10 @@ internal class AlertHeaderView: UIView {
         }
     }
     private var fillColor: UIColor!
-    private var type: AlertViewType?
+    private var type: CDAlertViewType?
     private var imageView: UIImageView!
 
-    convenience init(type: AlertViewType, isIconFilled: Bool) {
+    convenience init(type: CDAlertViewType, isIconFilled: Bool) {
         self.init(frame: .zero)
         self.type = type
         self.isIconFilled = isIconFilled

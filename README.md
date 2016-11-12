@@ -1,45 +1,45 @@
-![AlertView: Highly customizable alert popup](https://cloud.githubusercontent.com/assets/1971963/20237496/34d3081c-a8d4-11e6-8907-80b4c248dce0.png)
+![CDAlertView: Highly customizable alert popup](https://cloud.githubusercontent.com/assets/1971963/20237496/34d3081c-a8d4-11e6-8907-80b4c248dce0.png)
 
-[![CI Status](http://img.shields.io/travis/Candost Dagdeviren/AlertView.svg?style=flat)](https://travis-ci.org/Candost Dagdeviren/AlertView)
-[![Version](https://img.shields.io/cocoapods/v/AlertView.svg?style=flat)](http://cocoapods.org/pods/AlertView)
-[![License](https://img.shields.io/cocoapods/l/AlertView.svg?style=flat)](http://cocoapods.org/pods/AlertView)
-[![Platform](https://img.shields.io/cocoapods/p/AlertView.svg?style=flat)](http://cocoapods.org/pods/AlertView)
+[![CI Status](http://img.shields.io/travis/Candost Dagdeviren/CDAlertView.svg?style=flat)](https://travis-ci.org/Candost Dagdeviren/CDAlertView)
+[![Version](https://img.shields.io/cocoapods/v/CDAlertView.svg?style=flat)](http://cocoapods.org/pods/CDAlertView)
+[![License](https://img.shields.io/cocoapods/l/CDAlertView.svg?style=flat)](http://cocoapods.org/pods/CDAlertView)
+[![Platform](https://img.shields.io/cocoapods/p/CDAlertView.svg?style=flat)](http://cocoapods.org/pods/CDAlertView)
 
-AlertView is highly customizable alert popup written in Swift 3. Usage is similar to `UIAlertController`.
+CDAlertView is highly customizable alert popup written in Swift 3. Usage is similar to `UIAlertController`.
 
 ### Screenshots
 
-![AlertView Types](https://cloud.githubusercontent.com/assets/1971963/20238308/4bc1516e-a8e8-11e6-8e8b-c1a088f5daa0.png)
+![CDAlertView Types](https://cloud.githubusercontent.com/assets/1971963/20238308/4bc1516e-a8e8-11e6-8e8b-c1a088f5daa0.png)
 
 ### Animations
 
-![1](https://github.com/candostdagdeviren/AlertView/blob/master/Screenshots/1.gif)
-![2](https://github.com/candostdagdeviren/AlertView/blob/master/Screenshots/2.gif)
-![3](https://github.com/candostdagdeviren/AlertView/blob/master/Screenshots/3.gif)
+![1](https://github.com/candostdagdeviren/CDAlertView/blob/master/Screenshots/1.gif)
+![2](https://github.com/candostdagdeviren/CDAlertView/blob/master/Screenshots/2.gif)
+![3](https://github.com/candostdagdeviren/CDAlertView/blob/master/Screenshots/3.gif)
 
 ## Usage
 
 Basic usage without any buttons:
 
 ```swift
-AlertView(title: "Awesome Title", message: "Well explained message!", type: .notification).show()
+CDAlertView(title: "Awesome Title", message: "Well explained message!", type: .notification).show()
 ```
 **NOTE:** You can use it without buttons. Touch outside of the popup or move it will disappear it if there is no action button. If there is an action button, only pressing button will disappear it.
 
 To add new buttons:
 ```swift
-let alert = AlertView(title: "Awesome Title", message: "Are you in?!", type: .notification)
-let doneAction = AlertViewAction(title: "Sure! 💪")
+let alert = CDAlertView(title: "Awesome Title", message: "Are you in?!", type: .notification)
+let doneAction = CDAlertViewAction(title: "Sure! 💪")
 alert.add(action: doneAction)
-let nevermindAction = AlertViewAction(title: "Nevermind 😑")
+let nevermindAction = CDAlertViewAction(title: "Nevermind 😑")
 alert.add(action: nevermindAction)
 alert.show()
 ```
 
-AlertView types:
+CDAlertView types:
 
 ```swift
-public enum AlertViewType {
+public enum CDAlertViewType {
     case error, warning, success, notification, alarm, empty
 }
 ```
@@ -50,12 +50,12 @@ public enum AlertViewType {
 To use it with your custom icon, initialize without type (or with .empty) and set your icon and background color:
 
 ```swift
-let alert = AlertView(title: "Awesome Title", message: "Well explained message!")
+let alert = CDAlertView(title: "Awesome Title", message: "Well explained message!")
 alert.headerCircleImage = UIImage(named:"YourAwesomeImage")
 alert.circleFillColor = UIColor.yourAmazingColor
 ```
 
-### List of Available AlertView Options
+### List of Available CDAlertView Options
 
 `titleTextColor: UIColor` -> Sets title's text color
 
@@ -80,14 +80,14 @@ alert.circleFillColor = UIColor.yourAmazingColor
 `font`, `textColor`, `backgroundColor`, `handler` are all optional and has default parameter values. You can initilize with them or set them after initialization.
 
 ```swift
-let action = AlertViewAction(title: "Action Title", font: UIFont.yourCustomFont, textColor: UIColor.yourTextColor, backgroundColor: UIColor.yourBackgroundColor, handler: { action in
+let action = CDAlertViewAction(title: "Action Title", font: UIFont.yourCustomFont, textColor: UIColor.yourTextColor, backgroundColor: UIColor.yourBackgroundColor, handler: { action in
 })
 alertView.addAction(action)
 ```
 
 **NOTE:** Aligning buttons vertical and horizontal is possible. But using more than 3 buttons in horizontal placement is not possible. 
 
-### List of AlertViewAction Options
+### List of CDAlertViewAction Options
 
 `buttonTitle: String` -> Set's the action button title
 
@@ -95,7 +95,7 @@ alertView.addAction(action)
 
 `buttonFont: UIFont` -> Sets the action button title font. Default value is `UIFont.systemFont(ofSize: 17)`.
 
-`buttonBackgroundColor: UIColor` -> Sets the background color of action button. If not set, it uses `alertBackgroundColor` of AlertView.
+`buttonBackgroundColor: UIColor` -> Sets the background color of action button. If not set, it uses `alertBackgroundColor` of CDAlertView.
 
 ## Example
 
@@ -103,7 +103,7 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 ## Installation
 
-AlertView is available through [CocoaPods](http://cocoapods.org). To install
+CDAlertView is available through [CocoaPods](http://cocoapods.org). To install
 it, simply add the following line to your Podfile:
 
 ```ruby
@@ -131,4 +131,4 @@ Thanks to [Icons8](https://icons8.com/) for beautiful icons.
 
 ## License
 
-AlertView is available under the MIT license. See the LICENSE file for more info.
+CDAlertView is available under the MIT license. See the LICENSE file for more info.

@@ -1,6 +1,6 @@
 //
-//  AlertView.swift
-//  AlertView
+//  CDAlertView.swift
+//  CDAlertView
 //
 //  Created by Candost Dagdeviren on 10/30/2016.
 //  Copyright (c) 2016 Candost Dagdeviren. All rights reserved.
@@ -8,29 +8,29 @@
 
 import Foundation
 
-public enum AlertViewType {
+public enum CDAlertViewType {
     case error, warning, success, notification, alarm, empty
 }
 
-fileprivate protocol AlertViewActionDelegate: class {
-    func didTap(action: AlertViewAction)
+fileprivate protocol CDAlertViewActionDelegate: class {
+    func didTap(action: CDAlertViewAction)
 }
 
-open class AlertViewAction: NSObject {
+open class CDAlertViewAction: NSObject {
     public var buttonTitle: String?
     public var buttonTextColor: UIColor?
     public var buttonFont: UIFont?
     public var buttonBackgroundColor: UIColor?
 
-    fileprivate weak var delegate: AlertViewActionDelegate?
+    fileprivate weak var delegate: CDAlertViewActionDelegate?
 
-    private var handlerBlock: ((AlertViewAction) -> Swift.Void)?
+    private var handlerBlock: ((CDAlertViewAction) -> Swift.Void)?
 
     public convenience init(title: String?,
                             font: UIFont? = UIFont.systemFont(ofSize: 17),
                             textColor: UIColor? = UIColor(red: 27/255, green: 169/255, blue: 225/255, alpha: 1),
                             backgroundColor: UIColor? = nil,
-                            handler: ((AlertViewAction) -> Swift.Void)? = nil) {
+                            handler: ((CDAlertViewAction) -> Swift.Void)? = nil) {
         self.init()
         buttonTitle = title
         buttonTextColor = textColor
@@ -47,7 +47,7 @@ open class AlertViewAction: NSObject {
     }
 }
 
-open class AlertView: UIView {
+open class CDAlertView: UIView {
 
     public var actionSeparatorColor: UIColor = UIColor(red: 50/255,
                                                         green: 51/255,
@@ -87,7 +87,7 @@ open class AlertView: UIView {
 
     public var circleFillColor: UIColor? = nil
 
-    private struct AlertViewConstants {
+    private struct CDAlertViewConstants {
         let headerHeight: CGFloat = 56
         let popupWidth: CGFloat = 255
         let activeVelocity: CGFloat = 150
@@ -101,23 +101,23 @@ open class AlertView: UIView {
     }
 
     private var popupViewInitialFrame: CGRect!
-    private let constants = AlertViewConstants()
+    private let constants = CDAlertViewConstants()
     private var backgroundView: UIView = UIView(frame: .zero)
     private var popupView: UIView = UIView(frame: .zero)
     private var coverView: UIView = UIView(frame: .zero)
-    private var completionBlock: ((AlertView) -> Swift.Void)?
+    private var completionBlock: ((CDAlertView) -> Swift.Void)?
     private var contentStackView: UIStackView = UIStackView(frame: .zero)
     private var buttonContainer: UIStackView = UIStackView(frame: .zero)
-    private var headerView: AlertHeaderView!
+    private var headerView: CDAlertHeaderView!
     private var buttonView: UIView = UIView(frame: .zero)
     private var titleLabel: UILabel = UILabel(frame: .zero)
     private var messageLabel: UILabel = UILabel(frame: .zero)
-    private var type: AlertViewType!
-    private lazy var actions: [AlertViewAction] = [AlertViewAction]()
+    private var type: CDAlertViewType!
+    private lazy var actions: [CDAlertViewAction] = [CDAlertViewAction]()
 
     public convenience init(title: String?,
                             message: String?,
-                            type: AlertViewType? = .empty) {
+                            type: CDAlertViewType? = .empty) {
         self.init(frame: .zero)
 
         self.type = type
@@ -153,13 +153,13 @@ open class AlertView: UIView {
         }
     }
 
-    public func show(_ completion:((AlertView) -> Swift.Void)? = nil) {
+    public func show(_ completion:((CDAlertView) -> Swift.Void)? = nil) {
         UIApplication.shared.keyWindow?.addSubview(self)
         alignToParent(with: 0)
         addSubview(backgroundView)
         backgroundView.alignToParent(with: 0)
         if !isActionButtonsVertical && actions.count > 3 {
-            debugPrint("AlertView: You can't use more than 3 actions in horizontal mode. If you need more than 3 buttons, consider using vertical alignment for buttons. Setting vertical alignments for buttons is available via isActionButtonsVertical property of AlertView")
+            debugPrint("CDAlertView: You can't use more than 3 actions in horizontal mode. If you need more than 3 buttons, consider using vertical alignment for buttons. Setting vertical alignments for buttons is available via isActionButtonsVertical property of AlertView")
             actions.removeSubrange(3..<actions.count)
         }
         createViews()
@@ -187,7 +187,7 @@ open class AlertView: UIView {
         })
     }
 
-    public func add(action: AlertViewAction) {
+    public func add(action: CDAlertViewAction) {
         actions.append(action)
     }
 
@@ -292,7 +292,7 @@ open class AlertView: UIView {
     }
 
     private func createHeaderView() {
-        headerView = AlertHeaderView(type: type, isIconFilled: isHeaderIconFilled)
+        headerView = CDAlertHeaderView(type: type, isIconFilled: isHeaderIconFilled)
         headerView.backgroundColor = UIColor.clear
         headerView.hasShadow = hasShadow
         headerView.alertBackgroundColor = alertBackgroundColor
@@ -424,8 +424,8 @@ open class AlertView: UIView {
     }
 }
 
-extension AlertView: AlertViewActionDelegate {
-    internal func didTap(action: AlertViewAction) {
+extension CDAlertView: CDAlertViewActionDelegate {
+    internal func didTap(action: CDAlertViewAction) {
         self.hide(isPopupAnimated: true)
     }
 }

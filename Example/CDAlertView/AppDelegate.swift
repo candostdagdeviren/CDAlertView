@@ -1,8 +1,8 @@
 //
 //  AppDelegate.swift
-//  AlertView
+//  CDAlertView
 //
-//  Created by Candost Dagdeviren on 10/30/2016.
+//  Created by Candost Dagdeviren on 11/12/2016.
 //  Copyright (c) 2016 Candost Dagdeviren. All rights reserved.
 //
 
