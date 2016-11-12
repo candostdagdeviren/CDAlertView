@@ -153,7 +153,7 @@ open class AlertView: UIView {
         }
     }
 
-    public func show(with completion:((AlertView) -> Swift.Void)?) {
+    public func show(_ completion:((AlertView) -> Swift.Void)? = nil) {
         UIApplication.shared.keyWindow?.addSubview(self)
         alignToParent(with: 0)
         addSubview(backgroundView)
@@ -203,14 +203,14 @@ open class AlertView: UIView {
 
     func popupMoved(recognizer: UIPanGestureRecognizer) {
         let location = recognizer.location(in: backgroundView)
-        UIView.animate(withDuration: 0.1, animations: {
+        UIView.animate(withDuration: 0, animations: {
             self.popupView.center = location
         })
 
         if recognizer.state == .ended {
             let location = recognizer.location(in: backgroundView)
             let origin = CGPoint(x: backgroundView.center.x - popupViewInitialFrame.size.width/2,
-                                 y: backgroundView.center.y-constants.headerHeight - popupViewInitialFrame.size.height/2-constants.headerHeight)
+                                 y: backgroundView.center.y - popupViewInitialFrame.size.height/2)
             let velocity = recognizer.velocity(in: backgroundView)
             if !CGRect(origin: origin, size: popupViewInitialFrame.size).contains(location) ||
                 (velocity.x > constants.activeVelocity || velocity.y > constants.activeVelocity) {
@@ -224,7 +224,7 @@ open class AlertView: UIView {
                 })
             }
         } else if recognizer.state == .cancelled {
-            UIView.animate(withDuration: 1, animations: { 
+            UIView.animate(withDuration: 0, animations: {
                 self.popupView.center = self.backgroundView.center
             })
         }
@@ -238,8 +238,8 @@ open class AlertView: UIView {
         var offScreenCenter = popupView.center
 
         velocityX = velocityX >= 0 ?
-            (velocityX < constants.minVelocity ? constants.minVelocity : velocityX) :
-            (velocityX > -constants.minVelocity ? -constants.minVelocity : velocityX)
+            (velocityX < constants.minVelocity ? 0 : velocityX) :
+            (velocityX > -constants.minVelocity ? 0 : velocityX)
 
         velocityY = velocityY >= 0 ?
             (velocityY < constants.minVelocity ? constants.minVelocity : velocityY) :
