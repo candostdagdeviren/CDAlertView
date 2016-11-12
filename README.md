@@ -5,6 +5,18 @@
 [![License](https://img.shields.io/cocoapods/l/AlertView.svg?style=flat)](http://cocoapods.org/pods/AlertView)
 [![Platform](https://img.shields.io/cocoapods/p/AlertView.svg?style=flat)](http://cocoapods.org/pods/AlertView)
 
+## AlertView
+
+### Screenshots
+
+![AlertView Types](https://cloud.githubusercontent.com/assets/1971963/20238308/4bc1516e-a8e8-11e6-8e8b-c1a088f5daa0.png)
+
+### Animations
+
+![1](https://github.com/candostdagdeviren/AlertView/blob/master/Screenshots/1.gif)
+![2](https://github.com/candostdagdeviren/AlertView/blob/master/Screenshots/2.gif)
+![3](https://github.com/candostdagdeviren/AlertView/blob/master/Screenshots/3.gif)
+
 ## Example
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
