@@ -1,4 +1,4 @@
-# AlertView
+![AlertView: Highly customizable alert popup](https://cloud.githubusercontent.com/assets/1971963/20237496/34d3081c-a8d4-11e6-8907-80b4c248dce0.png)
 
 [![CI Status](http://img.shields.io/travis/Candost Dagdeviren/AlertView.svg?style=flat)](https://travis-ci.org/Candost Dagdeviren/AlertView)
 [![Version](https://img.shields.io/cocoapods/v/AlertView.svg?style=flat)](http://cocoapods.org/pods/AlertView)
