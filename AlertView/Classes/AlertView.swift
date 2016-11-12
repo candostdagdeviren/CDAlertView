@@ -9,7 +9,7 @@
 import Foundation
 
 public enum AlertViewType {
-    case error, warning, success, notification, empty
+    case error, warning, success, notification, alarm, empty
 }
 
 fileprivate protocol AlertViewActionDelegate: class {
@@ -80,6 +80,8 @@ open class AlertView: UIView {
     public var hasShadow: Bool = true
 
     public var headerCircleImage: UIImage? = nil
+
+    public var isHeaderIconFilled: Bool = false
 
     public var alertBackgroundColor: UIColor = UIColor.white.withAlphaComponent(0.9)
 
@@ -290,7 +292,7 @@ open class AlertView: UIView {
     }
 
     private func createHeaderView() {
-        headerView = AlertHeaderView(type: type)
+        headerView = AlertHeaderView(type: type, isIconFilled: isHeaderIconFilled)
         headerView.backgroundColor = UIColor.clear
         headerView.hasShadow = hasShadow
         headerView.alertBackgroundColor = alertBackgroundColor

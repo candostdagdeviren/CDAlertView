@@ -17,6 +17,7 @@ internal class AlertHeaderView: UIView {
             }
         }
     }
+    internal var isIconFilled: Bool = false
     internal var alertBackgroundColor: UIColor = UIColor.white.withAlphaComponent(0.9)
     internal var hasShadow: Bool = true
     internal var headerCircleImage: UIImage? {
@@ -30,9 +31,10 @@ internal class AlertHeaderView: UIView {
     private var type: AlertViewType?
     private var imageView: UIImageView!
 
-    convenience init(type: AlertViewType) {
+    convenience init(type: AlertViewType, isIconFilled: Bool) {
         self.init(frame: .zero)
         self.type = type
+        self.isIconFilled = isIconFilled
         backgroundColor = UIColor.clear
         imageView = createImageView()
     }
@@ -86,33 +88,41 @@ internal class AlertHeaderView: UIView {
 
     private func createImageView() -> UIImageView {
         let imageView = UIImageView(frame: .zero)
+        var imageName: String?
         if let t = type {
             switch t {
             case .error:
-                imageView.image = ImageHelper.loadImage(name: "error")
+                imageName = "error"
                 fillColor = UIColor(red: 235/255, green: 61/255, blue: 65/255, alpha: 1)
             case .success:
-                imageView.image = ImageHelper.loadImage(name: "check")
+                imageName = "check"
                 fillColor = UIColor(red: 65/255, green: 158/255, blue: 57/255, alpha: 1)
             case .warning:
-                imageView.image = ImageHelper.loadImage(name: "warningOutline")
+                imageName = isIconFilled ? "warningFilled" : "warningOutline"
                 fillColor = UIColor(red: 255/255, green: 149/255, blue: 0/255, alpha: 1)
             case .notification:
-                imageView.image = ImageHelper.loadImage(name: "notificationOutline")
+                imageName = isIconFilled ? "notificationFilled" : "notificationOutline"
                 fillColor = UIColor(red: 27/255, green: 169/255, blue: 225/255, alpha: 1)
+            case .alarm:
+                imageName = isIconFilled ? "alarmFilled" : "alarmOutline"
+                fillColor = UIColor(red: 196/255, green: 52/255, blue: 46/255, alpha: 1)
             default:
                 imageView.image = nil
                 fillColor = UIColor.white.withAlphaComponent(0.9)
             }
+            imageView.image = ImageHelper.loadImage(name: imageName)
         }
 
         imageView.contentMode = .center
         addSubview(imageView)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.centerHorizontally()
-        imageView.alignToTop(of: self, margin: 16, multiplier: 1)
-        imageView.setHeight(24)
-        imageView.setWidth(24)
+
+        imageView.alignToTop(of: self, margin: 12, multiplier: 1)
+        imageView.setHeight(32)
+        imageView.setWidth(32)
+
+
         
         return imageView
     }
