@@ -1,6 +1,6 @@
 ![CDAlertView: Highly customizable alert popup](https://cloud.githubusercontent.com/assets/1971963/20237496/34d3081c-a8d4-11e6-8907-80b4c248dce0.png)
 
-[![CI Status](http://img.shields.io/travis/Candost Dagdeviren/CDAlertView.svg?style=flat)](https://travis-ci.org/Candost Dagdeviren/CDAlertView)
+[![CI Status](http://img.shields.io/travis/candostdagdeviren/CDAlertView.svg?style=flat)](https://travis-ci.org/candostdagdeviren/CDAlertView/)
 [![Version](https://img.shields.io/cocoapods/v/CDAlertView.svg?style=flat)](http://cocoapods.org/pods/CDAlertView)
 [![License](https://img.shields.io/cocoapods/l/CDAlertView.svg?style=flat)](http://cocoapods.org/pods/CDAlertView)
 [![Platform](https://img.shields.io/cocoapods/p/CDAlertView.svg?style=flat)](http://cocoapods.org/pods/CDAlertView)
@@ -46,7 +46,7 @@ public enum CDAlertViewType {
 
 ## Initialization
 
-### Advance Alert Initialization
+### Advanced Alert Initialization
 To use it with your custom icon, initialize without type (or with .empty) and set your icon and background color:
 
 ```swift
@@ -75,13 +75,12 @@ alert.circleFillColor = UIColor.yourAmazingColor
 
 `isActionButtonsVertical: Bool` -> Alignes action buttons vertical. Default is `false`. Maximum number of horizontal buttons is 3.
 
-### Advance action initialization:
+### Advanced action initialization:
 
 `font`, `textColor`, `backgroundColor`, `handler` are all optional and has default parameter values. You can initilize with them or set them after initialization.
 
 ```swift
-let action = CDAlertViewAction(title: "Action Title", font: UIFont.yourCustomFont, textColor: UIColor.yourTextColor, backgroundColor: UIColor.yourBackgroundColor, handler: { action in
-})
+let action = CDAlertViewAction(title: "Action Title", font: UIFont.yourCustomFont, textColor: UIColor.yourTextColor, backgroundColor: UIColor.yourBackgroundColor, handler: { action in })
 alertView.addAction(action)
 ```
 
