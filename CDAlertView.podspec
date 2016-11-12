@@ -7,7 +7,7 @@ CDAlertView is highly customizable alert popup written in Swift 3. Usage is simi
                        DESC
 
   s.homepage         = 'https://github.com/candostdagdeviren/CDAlertView'
-  s.screenshots     = 'https://cloud.githubusercontent.com/assets/1971963/20238308/4bc1516e-a8e8-11e6-8e8b-c1a088f5daa0.png', 'https://github.com/candostdagdeviren/CDAlertView/blob/master/Screenshots/1.gif', 'https://github.com/candostdagdeviren/CDAlertView/blob/master/Screenshots/2.gif', 'https://github.com/candostdagdeviren/CDAlertView/blob/master/Screenshots/3.gif'
+  s.screenshots     = 'https://cloud.githubusercontent.com/assets/1971963/20238308/4bc1516e-a8e8-11e6-8e8b-c1a088f5daa0.png'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'Candost Dagdeviren' => 'candostdagdeviren@gmail.com' }
   s.source           = { :git => 'https://github.com/candostdagdeviren/CDAlertView.git', :tag => s.version.to_s }

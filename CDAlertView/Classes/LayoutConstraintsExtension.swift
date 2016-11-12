@@ -9,7 +9,7 @@
 import Foundation
 
 internal extension UIView {
-    public func alignToTop(of view: UIView, margin: CGFloat, multiplier: CGFloat) {
+    func alignToTop(of view: UIView, margin: CGFloat, multiplier: CGFloat) {
         self.superview!.addConstraint(NSLayoutConstraint(item: self,
                                                          attribute: .top,
                                                          relatedBy: .equal,
@@ -19,15 +19,15 @@ internal extension UIView {
                                                          constant: margin))
     }
 
-    public func alignTopToParent(with margin: CGFloat, multiplier: CGFloat) {
+    func alignTopToParent(with margin: CGFloat, multiplier: CGFloat) {
         alignToTop(of: self.superview!, margin: margin, multiplier: multiplier)
     }
 
-    public func alignBottomToParent(with margin: CGFloat) {
+    func alignBottomToParent(with margin: CGFloat) {
         alignToBottom(of: self.superview!, margin: margin)
     }
 
-    public func alignToBottom(of view: UIView, margin: CGFloat) {
+    func alignToBottom(of view: UIView, margin: CGFloat) {
         self.superview!.addConstraint(NSLayoutConstraint(item: self,
                                                          attribute: .bottom,
                                                          relatedBy: .equal,
@@ -37,11 +37,11 @@ internal extension UIView {
                                                          constant: -margin))
     }
 
-    public func alignLeftToParent(with margin: CGFloat) {
+    func alignLeftToParent(with margin: CGFloat) {
         alignToLeft(of: self.superview!, margin: margin)
     }
 
-    public func alignToLeft(of view: UIView, margin: CGFloat) {
+    func alignToLeft(of view: UIView, margin: CGFloat) {
         self.superview!.addConstraint(NSLayoutConstraint(item: self,
                                                          attribute: .left,
                                                          relatedBy: .equal,
@@ -51,11 +51,11 @@ internal extension UIView {
                                                          constant: margin))
     }
 
-    public func alignRightToParent(with margin: CGFloat) {
+    func alignRightToParent(with margin: CGFloat) {
         alignToRight(of: self.superview!, margin: margin)
     }
 
-    public func alignToRight(of view: UIView, margin: CGFloat) {
+    func alignToRight(of view: UIView, margin: CGFloat) {
         self.superview!.addConstraint(NSLayoutConstraint(item: self,
                                                          attribute: .right,
                                                          relatedBy: .equal,
@@ -65,7 +65,7 @@ internal extension UIView {
                                                          constant: -margin))
     }
 
-    public func alignToParent(with margin: CGFloat) {
+    func alignToParent(with margin: CGFloat) {
         translatesAutoresizingMaskIntoConstraints = false
         alignTopToParent(with: margin, multiplier: 1)
         alignLeftToParent(with: margin)
@@ -73,7 +73,7 @@ internal extension UIView {
         alignBottomToParent(with: margin)
     }
 
-    public func setHeight(_ height: CGFloat) {
+    func setHeight(_ height: CGFloat) {
         self.superview!.addConstraint(NSLayoutConstraint(item: self,
                                                          attribute: .height,
                                                          relatedBy: .equal,
@@ -83,7 +83,7 @@ internal extension UIView {
                                                          constant: height))
     }
 
-    public func setMaxHeight(_ height: CGFloat) {
+    func setMaxHeight(_ height: CGFloat) {
         self.addConstraint(NSLayoutConstraint(item: self,
                                               attribute: .height,
                                               relatedBy: .lessThanOrEqual,
@@ -93,7 +93,7 @@ internal extension UIView {
                                               constant: height))
     }
 
-    public func setWidth(_ width: CGFloat) {
+    func setWidth(_ width: CGFloat) {
         self.addConstraint(NSLayoutConstraint(item: self,
                                               attribute: .width,
                                               relatedBy: .equal,
@@ -103,7 +103,7 @@ internal extension UIView {
                                               constant: width))
     }
 
-    public func centerHorizontally() {
+    func centerHorizontally() {
         self.superview!.addConstraint(NSLayoutConstraint(item: self,
                                                          attribute: .centerX,
                                                          relatedBy: .equal,
@@ -113,7 +113,7 @@ internal extension UIView {
                                                          constant: 0))
     }
 
-    public func centerVertically() {
+    func centerVertically() {
         self.superview!.addConstraint(NSLayoutConstraint(item: self,
                                                          attribute: .centerY,
                                                          relatedBy: .equal,
@@ -123,7 +123,7 @@ internal extension UIView {
                                                          constant: 0))
     }
 
-    public func place(below view: UIView, margin: CGFloat) {
+    func place(below view: UIView, margin: CGFloat) {
         self.superview!.addConstraint(NSLayoutConstraint(item: self,
                                                          attribute: .top,
                                                          relatedBy: .equal,
@@ -133,7 +133,7 @@ internal extension UIView {
                                                          constant: margin))
     }
 
-    public func place(above view: UIView, margin: CGFloat) {
+    func place(above view: UIView, margin: CGFloat) {
         self.superview!.addConstraint(NSLayoutConstraint(item: self,
                                                          attribute: .bottom,
                                                          relatedBy: .equal,
