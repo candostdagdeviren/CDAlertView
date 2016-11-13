@@ -114,12 +114,6 @@ pod "CDAlertView"
 * Xcode 8
 * iOS 9.0+
 
-## TODO
-
-- [ ] Add dynamic width for popup
-- [ ] Improve animations and add new ones
-- [ ] Limit number of actions in vertical alignment mode
-
 ## Author
 
 Candost Dagdeviren, candostdagdeviren@gmail.com
