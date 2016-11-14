@@ -50,8 +50,7 @@ public enum CDAlertViewType {
 To use it with your custom icon, initialize without type (or with .empty) and set your icon and background color:
 
 ```swift
-let alert = CDAlertView(title: "Awesome Title", message: "Well explained message!")
-alert.headerCircleImage = UIImage(named:"YourAwesomeImage")
+let alert = CDAlertView(title: "Awesome Title", message: "Well explained message!", type: .custom(image: UIImage(named:"YourAwesomeImage")))
 alert.circleFillColor = UIColor.yourAmazingColor
 ```
 
