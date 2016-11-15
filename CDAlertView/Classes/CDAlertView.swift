@@ -85,9 +85,10 @@ open class CDAlertView: UIView {
 
     public var circleFillColor: UIColor? = nil
 
+    public var popupWidth: CGFloat = 255.0
+
     private struct CDAlertViewConstants {
         let headerHeight: CGFloat = 56
-        let popupWidth: CGFloat = 255
         let activeVelocity: CGFloat = 150
         let minVelocity: CGFloat = 300
         let separatorThickness: CGFloat = 1.0/UIScreen.main.scale
@@ -253,10 +254,10 @@ open class CDAlertView: UIView {
 
 
     private func roundBottomOfCoverView() {
-        let roundCornersPath = UIBezierPath(roundedRect: CGRect(x: 0,
-                                                                y: 0,
-                                                                width: Int(constants.popupWidth),
-                                                                height: Int(coverView.frame.size.height)),
+        let roundCornersPath = UIBezierPath(roundedRect: CGRect(x: 0.0,
+                                                                y: 0.0,
+                                                                width: popupWidth,
+                                                                height: coverView.frame.size.height),
                                             byRoundingCorners: [.bottomLeft, .bottomRight],
                                             cornerRadii: CGSize(width: 8.0,
                                                                 height: 8.0))
@@ -277,7 +278,7 @@ open class CDAlertView: UIView {
         popupView.translatesAutoresizingMaskIntoConstraints = false
         popupView.centerHorizontally()
         popupView.centerVertically()
-        popupView.setWidth(constants.popupWidth)
+        popupView.setWidth(popupWidth)
         popupView.setMaxHeight(430)
         popupView.sizeToFit()
         popupView.layoutIfNeeded()
@@ -313,7 +314,7 @@ open class CDAlertView: UIView {
         }
         let roundCornersPath = UIBezierPath(roundedRect: CGRect(x: 0.0,
                                                                 y: 0.0,
-                                                                width: constants.popupWidth,
+                                                                width: popupWidth,
                                                                 height: height),
                                             byRoundingCorners: [.bottomLeft, .bottomRight],
                                             cornerRadii: CGSize(width: 8.0, height: 8.0))
