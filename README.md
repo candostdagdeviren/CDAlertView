@@ -1,9 +1,10 @@
 ![CDAlertView: Highly customizable alert popup](https://cloud.githubusercontent.com/assets/1971963/20237496/34d3081c-a8d4-11e6-8907-80b4c248dce0.png)
 
 [![CI Status](http://img.shields.io/travis/candostdagdeviren/CDAlertView.svg?style=flat)](https://travis-ci.org/candostdagdeviren/CDAlertView/)
-[![Version](https://img.shields.io/cocoapods/v/CDAlertView.svg?style=flat)](http://cocoapods.org/pods/CDAlertView)
-[![License](https://img.shields.io/cocoapods/l/CDAlertView.svg?style=flat)](http://cocoapods.org/pods/CDAlertView)
-[![Platform](https://img.shields.io/cocoapods/p/CDAlertView.svg?style=flat)](http://cocoapods.org/pods/CDAlertView)
+<a href="https://cocoapods.org/pods/CDAlertView"><img src="https://img.shields.io/badge/pod-0.1.1-blue.svg" alt="CocoaPods compatible" /></a>
+<a href="https://developer.apple.com/swift"><img src="https://img.shields.io/badge/swift3-compatible-4BC51D.svg?style=flat" alt="Swift 3 compatible" /></a>
+<img src="https://img.shields.io/badge/platform-iOS-blue.svg?style=flat" alt="Platform iOS" />
+<a href="https://raw.githubusercontent.com/candostdagdeviren/CDAlertView/master/LICENSE"><img src="http://img.shields.io/badge/license-MIT-blue.svg?style=flat" alt="License: MIT" /></a>
 
 CDAlertView is highly customizable alert popup written in Swift 3. Usage is similar to `UIAlertController`.
 
