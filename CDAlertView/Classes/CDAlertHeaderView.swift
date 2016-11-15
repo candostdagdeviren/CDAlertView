@@ -8,8 +8,29 @@
 
 import Foundation
 
+private extension CDAlertViewType {
+    var fillColor: UIColor? {
+        switch self {
+        case .error:
+            return UIColor(red: 235/255, green: 61/255, blue: 65/255, alpha: 1)
+        case .success:
+            return UIColor(red: 65/255, green: 158/255, blue: 57/255, alpha: 1)
+        case .warning:
+            return UIColor(red: 255/255, green: 149/255, blue: 0/255, alpha: 1)
+        case .notification:
+            return UIColor(red: 27/255, green: 169/255, blue: 225/255, alpha: 1)
+        case .alarm:
+            return UIColor(red: 196/255, green: 52/255, blue: 46/255, alpha: 1)
+        case .custom:
+            return nil
+        }
+    }
+}
+
 internal class CDAlertHeaderView: UIView {
 
+    // MARK: Properties
+    
     internal var circleFillColor: UIColor? {
         didSet {
             if let cfc = circleFillColor {
@@ -20,24 +41,20 @@ internal class CDAlertHeaderView: UIView {
     internal var isIconFilled: Bool = false
     internal var alertBackgroundColor: UIColor = UIColor.white.withAlphaComponent(0.9)
     internal var hasShadow: Bool = true
-    internal var headerCircleImage: UIImage? {
-        didSet {
-            if let hci = headerCircleImage {
-                imageView.image = hci
-            }
-        }
-    }
     private var fillColor: UIColor!
     private var type: CDAlertViewType?
-    private var imageView: UIImageView!
-
-    convenience init(type: CDAlertViewType, isIconFilled: Bool) {
+    private var imageView: UIImageView?
+    
+    convenience init(type: CDAlertViewType?, isIconFilled: Bool) {
         self.init(frame: .zero)
         self.type = type
         self.isIconFilled = isIconFilled
         backgroundColor = UIColor.clear
+        fillColor = type?.fillColor ?? UIColor.white.withAlphaComponent(0.9)
         imageView = createImageView()
     }
+    
+    // MARK: UIView
     
     override func draw(_ rect: CGRect) {
         let path = UIBezierPath(roundedRect: CGRect(x: 0, y: 16, width: rect.size.width, height: rect.size.height-16),
@@ -85,34 +102,32 @@ internal class CDAlertHeaderView: UIView {
             layer.shadowPath = shadowPath.cgPath
         }
     }
+    
+    // MARK: Private
 
-    private func createImageView() -> UIImageView {
+    private func createImageView() -> UIImageView? {
+        guard let type = type else { return nil }
+        
         let imageView = UIImageView(frame: .zero)
         var imageName: String?
-        if let t = type {
-            switch t {
-            case .error:
-                imageName = "error"
-                fillColor = UIColor(red: 235/255, green: 61/255, blue: 65/255, alpha: 1)
-            case .success:
-                imageName = "check"
-                fillColor = UIColor(red: 65/255, green: 158/255, blue: 57/255, alpha: 1)
-            case .warning:
-                imageName = isIconFilled ? "warningFilled" : "warningOutline"
-                fillColor = UIColor(red: 255/255, green: 149/255, blue: 0/255, alpha: 1)
-            case .notification:
-                imageName = isIconFilled ? "notificationFilled" : "notificationOutline"
-                fillColor = UIColor(red: 27/255, green: 169/255, blue: 225/255, alpha: 1)
-            case .alarm:
-                imageName = isIconFilled ? "alarmFilled" : "alarmOutline"
-                fillColor = UIColor(red: 196/255, green: 52/255, blue: 46/255, alpha: 1)
-            default:
-                imageView.image = nil
-                fillColor = UIColor.white.withAlphaComponent(0.9)
-            }
+        switch type {
+        case .error:
+            imageView.image = ImageHelper.loadImage(name: "error")
+        case .success:
+            imageView.image = ImageHelper.loadImage(name: "check")
+        case .warning:
+            imageName = isIconFilled ? "warningFilled" : "warningOutline"
             imageView.image = ImageHelper.loadImage(name: imageName)
+        case .notification:
+            imageName = isIconFilled ? "notificationFilled" : "notificationOutline"
+            imageView.image = ImageHelper.loadImage(name: imageName)
+        case .alarm:
+            imageName = isIconFilled ? "alarmFilled" : "alarmOutline"
+            imageView.image = ImageHelper.loadImage(name: imageName)
+        case .custom(let image):
+            imageView.image = image
         }
-
+        
         imageView.contentMode = .center
         addSubview(imageView)
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -121,8 +136,6 @@ internal class CDAlertHeaderView: UIView {
         imageView.alignToTop(of: self, margin: 12, multiplier: 1)
         imageView.setHeight(32)
         imageView.setWidth(32)
-
-
         
         return imageView
     }

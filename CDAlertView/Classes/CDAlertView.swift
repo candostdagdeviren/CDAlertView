@@ -9,7 +9,7 @@
 import Foundation
 
 public enum CDAlertViewType {
-    case error, warning, success, notification, alarm, empty
+    case error, warning, success, notification, alarm, custom(image: UIImage)
 }
 
 fileprivate protocol CDAlertViewActionDelegate: class {
@@ -79,8 +79,6 @@ open class CDAlertView: UIView {
 
     public var hasShadow: Bool = true
 
-    public var headerCircleImage: UIImage? = nil
-
     public var isHeaderIconFilled: Bool = false
 
     public var alertBackgroundColor: UIColor = UIColor.white.withAlphaComponent(0.9)
@@ -117,7 +115,7 @@ open class CDAlertView: UIView {
 
     public convenience init(title: String?,
                             message: String?,
-                            type: CDAlertViewType? = .empty) {
+                            type: CDAlertViewType? = nil) {
         self.init(frame: .zero)
 
         self.type = type
@@ -297,7 +295,6 @@ open class CDAlertView: UIView {
         headerView.hasShadow = hasShadow
         headerView.alertBackgroundColor = alertBackgroundColor
         headerView.circleFillColor = circleFillColor
-        headerView.headerCircleImage = headerCircleImage
         popupView.addSubview(headerView)
         headerView.translatesAutoresizingMaskIntoConstraints = false
         headerView.alignTopToParent(with: 0, multiplier: 1)
