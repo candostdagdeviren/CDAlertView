@@ -21,7 +21,7 @@ private extension CDAlertViewType {
             return UIColor(red: 27/255, green: 169/255, blue: 225/255, alpha: 1)
         case .alarm:
             return UIColor(red: 196/255, green: 52/255, blue: 46/255, alpha: 1)
-        case .custom(let image):
+        case .custom:
             return nil
         }
     }
