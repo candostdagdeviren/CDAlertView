@@ -19,8 +19,8 @@ internal extension UIView {
                                                          constant: margin))
     }
 
-    func alignTopToParent(with margin: CGFloat, multiplier: CGFloat) {
-        alignToTop(of: self.superview!, margin: margin, multiplier: multiplier)
+    func alignTopToParent(with margin: CGFloat) {
+        alignToTop(of: self.superview!, margin: margin, multiplier: 1)
     }
 
     func alignBottomToParent(with margin: CGFloat) {
@@ -67,7 +67,7 @@ internal extension UIView {
 
     func alignToParent(with margin: CGFloat) {
         translatesAutoresizingMaskIntoConstraints = false
-        alignTopToParent(with: margin, multiplier: 1)
+        alignTopToParent(with: margin)
         alignLeftToParent(with: margin)
         alignRightToParent(with: margin)
         alignBottomToParent(with: margin)

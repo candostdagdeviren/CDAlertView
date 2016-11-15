@@ -90,11 +90,12 @@ open class CDAlertView: UIView {
         let popupWidth: CGFloat = 255
         let activeVelocity: CGFloat = 150
         let minVelocity: CGFloat = 300
+        let separatorThickness: CGFloat = 1.0/UIScreen.main.scale
     }
 
-    private var buttonsHeight: Int {
+    private var buttonsHeight: CGFloat {
         get {
-            return self.actions.count > 0 ? 44 : 0
+            return self.actions.count > 0 ? 44.0 : 0
         }
     }
 
@@ -297,22 +298,22 @@ open class CDAlertView: UIView {
         headerView.circleFillColor = circleFillColor
         popupView.addSubview(headerView)
         headerView.translatesAutoresizingMaskIntoConstraints = false
-        headerView.alignTopToParent(with: 0, multiplier: 1)
+        headerView.alignTopToParent(with: 0)
         headerView.alignLeftToParent(with: 0)
         headerView.alignRightToParent(with: 0)
         headerView.setHeight(constants.headerHeight)
     }
 
     private func createButtonContainer() {
-        var height = buttonsHeight
+        var height = buttonsHeight + constants.separatorThickness
         buttonView.backgroundColor = UIColor.clear
         buttonView.layer.masksToBounds = true
         if isActionButtonsVertical {
-            height = buttonsHeight * actions.count
+            height = (buttonsHeight + constants.separatorThickness) * CGFloat(actions.count)
         }
-        let roundCornersPath = UIBezierPath(roundedRect: CGRect(x: 0,
-                                                                y: 0,
-                                                                width: Int(constants.popupWidth),
+        let roundCornersPath = UIBezierPath(roundedRect: CGRect(x: 0.0,
+                                                                y: 0.0,
+                                                                width: constants.popupWidth,
                                                                 height: height),
                                             byRoundingCorners: [.bottomLeft, .bottomRight],
                                             cornerRadii: CGSize(width: 8.0, height: 8.0))
@@ -333,16 +334,16 @@ open class CDAlertView: UIView {
             buttonView.addSubview(backgroundColoredView)
             backgroundColoredView.alignToParent(with: 0)
 
-            buttonContainer.spacing = 1
+            buttonContainer.spacing = constants.separatorThickness
             if isActionButtonsVertical {
                 buttonContainer.axis = .vertical
             } else {
                 buttonContainer.axis = .horizontal
             }
-            buttonView.setHeight(CGFloat(height))
-            backgroundColoredView.addSubview(buttonContainer)
+            buttonView.setHeight(height)
             buttonContainer.translatesAutoresizingMaskIntoConstraints = false
-            buttonContainer.alignTopToParent(with: 1, multiplier: 0.5)
+            backgroundColoredView.addSubview(buttonContainer)
+            buttonContainer.alignTopToParent(with: constants.separatorThickness)
             buttonContainer.alignBottomToParent(with: 0)
             buttonContainer.alignLeftToParent(with: 0)
             buttonContainer.alignRightToParent(with: 0)
@@ -362,7 +363,7 @@ open class CDAlertView: UIView {
         contentStackView.spacing = 8
         coverView.addSubview(contentStackView)
         contentStackView.translatesAutoresizingMaskIntoConstraints = false
-        contentStackView.alignTopToParent(with: 0, multiplier: 1)
+        contentStackView.alignTopToParent(with: 0)
         contentStackView.alignBottomToParent(with: 16)
         contentStackView.alignRightToParent(with: 16)
         contentStackView.alignLeftToParent(with: 16)
@@ -413,10 +414,10 @@ open class CDAlertView: UIView {
             if isActionButtonsVertical {
                 button.setWidth(buttonContainer.frame.size.width)
             } else {
-                button.setWidth((buttonContainer.frame.size.width-CGFloat(actions.count-1))/CGFloat(actions.count))
+                button.setWidth((buttonContainer.frame.size.width-CGFloat(actions.count-1) * constants.separatorThickness)/CGFloat(actions.count))
             }
 
-            button.setHeight(CGFloat(buttonsHeight - 1))
+            button.setHeight(CGFloat(buttonsHeight))
         }
     }
 }
