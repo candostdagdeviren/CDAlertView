@@ -69,6 +69,8 @@ alert.circleFillColor = UIColor.yourAmazingColor
 
 `alertBackgroundColor: UIColor` -> Sets popup's background color.
 
+`popupWidth: CGFloat` -> Width of the popup view
+
 `hasShadow: Bool` -> Apply shadows around the popup. Defualt is `true`.
 
 `circleFillColor: UIColor` -> Sets background color of header icon. (Color of circle area)
