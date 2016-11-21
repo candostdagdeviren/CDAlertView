@@ -41,7 +41,7 @@ CDAlertView types:
 
 ```swift
 public enum CDAlertViewType {
-    case error, warning, success, notification, alarm, empty
+    case error, warning, success, notification, alarm, custom(image:UIImage)
 }
 ```
 
