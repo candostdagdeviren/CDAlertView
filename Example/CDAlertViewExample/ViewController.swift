@@ -1,9 +1,9 @@
 //
 //  ViewController.swift
-//  CDAlertView
+//  CDAlertViewExample
 //
-//  Created by Candost Dagdeviren on 11/12/2016.
-//  Copyright (c) 2016 Candost Dagdeviren. All rights reserved.
+//  Created by Candost Dagdeviren on 29/11/2016.
+//  Copyright © 2016 Candost Dagdeviren. All rights reserved.
 //
 
 import UIKit
@@ -22,7 +22,7 @@ class ViewController: UIViewController {
         let action = CDAlertViewAction(title: "DONE")
         alert.add(action: action)
         alert.show()
-
+        
     }
 }
 

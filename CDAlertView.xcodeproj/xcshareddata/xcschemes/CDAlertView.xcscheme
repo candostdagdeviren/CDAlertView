@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0720"
+   LastUpgradeVersion = "0810"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,23 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "607FACCF1AFB9204008FA782"
-               BuildableName = "CDAlertView_Example.app"
-               BlueprintName = "CDAlertView_Example"
-               ReferencedContainer = "container:CDAlertView.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "NO"
-            buildForArchiving = "NO"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "607FACE41AFB9204008FA782"
-               BuildableName = "CDAlertView_Tests.xctest"
-               BlueprintName = "CDAlertView_Tests"
+               BlueprintIdentifier = "49A1B1E51DEDA4A300DF4686"
+               BuildableName = "CDAlertView.framework"
+               BlueprintName = "CDAlertView"
                ReferencedContainer = "container:CDAlertView.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -46,9 +32,9 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "607FACE41AFB9204008FA782"
-               BuildableName = "CDAlertView_Tests.xctest"
-               BlueprintName = "CDAlertView_Tests"
+               BlueprintIdentifier = "49A1B1EE1DEDA4A300DF4686"
+               BuildableName = "CDAlertViewTests.xctest"
+               BlueprintName = "CDAlertViewTests"
                ReferencedContainer = "container:CDAlertView.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -56,9 +42,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "607FACCF1AFB9204008FA782"
-            BuildableName = "CDAlertView_Example.app"
-            BlueprintName = "CDAlertView_Example"
+            BlueprintIdentifier = "49A1B1E51DEDA4A300DF4686"
+            BuildableName = "CDAlertView.framework"
+            BlueprintName = "CDAlertView"
             ReferencedContainer = "container:CDAlertView.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -75,16 +61,15 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "607FACCF1AFB9204008FA782"
-            BuildableName = "CDAlertView_Example.app"
-            BlueprintName = "CDAlertView_Example"
+            BlueprintIdentifier = "49A1B1E51DEDA4A300DF4686"
+            BuildableName = "CDAlertView.framework"
+            BlueprintName = "CDAlertView"
             ReferencedContainer = "container:CDAlertView.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -94,16 +79,15 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "607FACCF1AFB9204008FA782"
-            BuildableName = "CDAlertView_Example.app"
-            BlueprintName = "CDAlertView_Example"
+            BlueprintIdentifier = "49A1B1E51DEDA4A300DF4686"
+            BuildableName = "CDAlertView.framework"
+            BlueprintName = "CDAlertView"
             ReferencedContainer = "container:CDAlertView.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
