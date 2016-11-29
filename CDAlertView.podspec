@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'CDAlertView'
-  s.version          = '0.3.0'
+  s.version          = '0.3.1'
   s.summary          = 'Highly customizable alert/notification/success/error/alarm popup'
   s.description      = <<-DESC
 CDAlertView is highly customizable alert popup written in Swift 3. Usage is similar to UIAlertController.
