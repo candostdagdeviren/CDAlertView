@@ -4,13 +4,20 @@
 
 osx_image: xcode8
 language: objective-c
-xcode_workspace: Example/CDAlertView.xcworkspace
+xcode_workspace: Example/CDAlertViewExample.xcworkspace
 xcode_sdk: iphonesimulator10.0
-xcode_scheme: CDAlertView-Example
+xcode_scheme: CDAlertViewExample
 podfile: Example/Podfile
+on:
+  repo: candostdagdeviren/CDAlertView
+  tags: true
 before_install:
 - gem install cocoapods
 - pod install --project-directory=Example
+- brew update
+- brew outdated carthage || brew upgrade carthage
+before_deploy:
+- carthage build --no-skip-current
 script:
 - set -o pipefail
 - xcodebuild -version
