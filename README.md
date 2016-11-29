@@ -105,11 +105,20 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 ## Installation
 
-CDAlertView is available through [CocoaPods](http://cocoapods.org). To install
-it, simply add the following line to your Podfile:
+### Using [CocoaPods](http://cocoapods.org)
+
+CDAlertView is available through CocoaPods. To install it, simply add the following line to your `Podfile`:
 
 ```ruby
 pod "CDAlertView"
+```
+
+### Using [Carthage](https://github.com/Carthage/Carthage)
+
+CDAlertView is available through Carthage. To install it, simply add the following line to your `Cartfile`:
+
+```
+github "candostdagdeviren/CDAlertView"
 ```
 
 ## Requirements
