@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>CDAlertView by candostdagdeviren</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">CDAlertView</h1>
+      <h2 class="project-tagline">Highly customizable alertview and alert/notification/success/error/alarm popup written in Swift 3</h2>
+      <a href="https://github.com/candostdagdeviren/CDAlertView" class="btn">View on GitHub</a>
+      <a href="https://github.com/candostdagdeviren/CDAlertView/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/candostdagdeviren/CDAlertView/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <p><img src="https://cloud.githubusercontent.com/assets/1971963/20237496/34d3081c-a8d4-11e6-8907-80b4c248dce0.png" alt="CDAlertView: Highly customizable alert popup"></p>
+
+<p><a href="https://github.com/Carthage/Carthage"><img src="https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat" alt="Carthage compatible"></a>
+<a href="https://cocoapods.org/pods/CDAlertView"><img src="https://img.shields.io/badge/pod-0.3.1-blue.svg" alt="CocoaPods compatible"></a>
+<a href="https://travis-ci.org/candostdagdeviren/CDAlertView/"><img src="http://img.shields.io/travis/candostdagdeviren/CDAlertView.svg?style=flat" alt="CI Status"></a>
+<a href="https://developer.apple.com/swift"><img src="https://img.shields.io/badge/swift3-compatible-4BC51D.svg?style=flat" alt="Swift 3 compatible"></a>
+<img src="https://img.shields.io/badge/platform-iOS-blue.svg?style=flat" alt="Platform iOS">
+<a href="https://raw.githubusercontent.com/candostdagdeviren/CDAlertView/master/LICENSE"><img src="http://img.shields.io/badge/license-MIT-blue.svg?style=flat" alt="License: MIT"></a></p>
+
+<p>CDAlertView is highly customizable alert popup written in Swift 3. Usage is similar to <code>UIAlertController</code>.</p>
+
+<h3>
+<a id="screenshots" class="anchor" href="#screenshots" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Screenshots</h3>
+
+<p><img src="https://cloud.githubusercontent.com/assets/1971963/20238308/4bc1516e-a8e8-11e6-8e8b-c1a088f5daa0.png" alt="CDAlertView Types"></p>
+
+<h3>
+<a id="animations" class="anchor" href="#animations" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Animations</h3>
+
+<p><img src="https://github.com/candostdagdeviren/CDAlertView/blob/master/Screenshots/1.gif" alt="1">
+<img src="https://github.com/candostdagdeviren/CDAlertView/blob/master/Screenshots/2.gif" alt="2">
+<img src="https://github.com/candostdagdeviren/CDAlertView/blob/master/Screenshots/3.gif" alt="3"></p>
+
+<h2>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h2>
+
+<p>Basic usage without any buttons:</p>
+
+<div class="highlight highlight-source-swift"><pre><span class="pl-c1">CDAlertView</span>(<span class="pl-c1">title</span>: <span class="pl-s"><span class="pl-pds">"</span>Awesome Title<span class="pl-pds">"</span></span>, <span class="pl-c1">message</span>: <span class="pl-s"><span class="pl-pds">"</span>Well explained message!<span class="pl-pds">"</span></span>, <span class="pl-c1">type</span>: .<span class="pl-smi">notification</span>).<span class="pl-c1">show</span>()</pre></div>
+
+<p><strong>NOTE:</strong> You can use it without buttons. Touch outside of the popup or move it will disappear it if there is no action button. If there is an action button, only pressing button will disappear it.</p>
+
+<p>To add new buttons:</p>
+
+<div class="highlight highlight-source-swift"><pre><span class="pl-k">let</span> alert <span class="pl-k">=</span> <span class="pl-c1">CDAlertView</span>(<span class="pl-c1">title</span>: <span class="pl-s"><span class="pl-pds">"</span>Awesome Title<span class="pl-pds">"</span></span>, <span class="pl-c1">message</span>: <span class="pl-s"><span class="pl-pds">"</span>Are you in?!<span class="pl-pds">"</span></span>, <span class="pl-c1">type</span>: .<span class="pl-smi">notification</span>)
+<span class="pl-k">let</span> doneAction <span class="pl-k">=</span> <span class="pl-c1">CDAlertViewAction</span>(<span class="pl-c1">title</span>: <span class="pl-s"><span class="pl-pds">"</span>Sure! 💪<span class="pl-pds">"</span></span>)
+alert.<span class="pl-c1">add</span>(<span class="pl-c1">action</span>: doneAction)
+<span class="pl-k">let</span> nevermindAction <span class="pl-k">=</span> <span class="pl-c1">CDAlertViewAction</span>(<span class="pl-c1">title</span>: <span class="pl-s"><span class="pl-pds">"</span>Nevermind 😑<span class="pl-pds">"</span></span>)
+alert.<span class="pl-c1">add</span>(<span class="pl-c1">action</span>: nevermindAction)
+alert.<span class="pl-c1">show</span>()</pre></div>
+
+<p>CDAlertView types:</p>
+
+<div class="highlight highlight-source-swift"><pre><span class="pl-k">public</span> <span class="pl-k">enum</span> <span class="pl-en">CDAlertViewType</span> {
+    <span class="pl-k">case</span> <span class="pl-c1">error</span>, <span class="pl-c1">warning</span>, <span class="pl-c1">success</span>, <span class="pl-c1">notification</span>, <span class="pl-c1">alarm</span>, <span class="pl-c1">custom</span>(<span class="pl-en"><span class="pl-smi">image</span></span>:UIImage)
+}</pre></div>
+
+<h2>
+<a id="initialization" class="anchor" href="#initialization" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Initialization</h2>
+
+<h3>
+<a id="advanced-alert-initialization" class="anchor" href="#advanced-alert-initialization" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Advanced Alert Initialization</h3>
+
+<p>To use it with your custom icon, initialize without type (or with .empty) and set your icon and background color:</p>
+
+<div class="highlight highlight-source-swift"><pre><span class="pl-k">let</span> alert <span class="pl-k">=</span> <span class="pl-c1">CDAlertView</span>(<span class="pl-c1">title</span>: <span class="pl-s"><span class="pl-pds">"</span>Awesome Title<span class="pl-pds">"</span></span>, <span class="pl-c1">message</span>: <span class="pl-s"><span class="pl-pds">"</span>Well explained message!<span class="pl-pds">"</span></span>, <span class="pl-c1">type</span>: .<span class="pl-c1">custom</span>(<span class="pl-c1">image</span>: <span class="pl-c1">UIImage</span>(<span class="pl-c1">named</span>:<span class="pl-s"><span class="pl-pds">"</span>YourAwesomeImage<span class="pl-pds">"</span></span>)))
+alert.<span class="pl-smi">circleFillColor</span> <span class="pl-k">=</span> UIColor.<span class="pl-smi">yourAmazingColor</span></pre></div>
+
+<h3>
+<a id="list-of-available-cdalertview-options" class="anchor" href="#list-of-available-cdalertview-options" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>List of Available CDAlertView Options</h3>
+
+<p><code>titleTextColor: UIColor</code> -&gt; Sets title's text color</p>
+
+<p><code>messageTextColor: UIColor</code> -&gt; Sets message's text color</p>
+
+<p><code>titleFont: UIFont</code> -&gt; Sets title's font</p>
+
+<p><code>messageFont: UIFont</code> -&gt; Sets message's font</p>
+
+<p><code>isHeaderIconFilled: Bool</code> -&gt; Chooses filled icons instead of outline ones. Default is <code>false</code>.</p>
+
+<p><code>alertBackgroundColor: UIColor</code> -&gt; Sets popup's background color.</p>
+
+<p><code>popupWidth: CGFloat</code> -&gt; Width of the popup view</p>
+
+<p><code>hasShadow: Bool</code> -&gt; Apply shadows around the popup. Defualt is <code>true</code>.</p>
+
+<p><code>circleFillColor: UIColor</code> -&gt; Sets background color of header icon. (Color of circle area)</p>
+
+<p><code>isActionButtonsVertical: Bool</code> -&gt; Alignes action buttons vertical. Default is <code>false</code>. Maximum number of horizontal buttons is 3.</p>
+
+<h3>
+<a id="advanced-action-initialization" class="anchor" href="#advanced-action-initialization" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Advanced action initialization:</h3>
+
+<p><code>font</code>, <code>textColor</code>, <code>backgroundColor</code>, <code>handler</code> are all optional and has default parameter values. You can initilize with them or set them after initialization.</p>
+
+<div class="highlight highlight-source-swift"><pre><span class="pl-k">let</span> action <span class="pl-k">=</span> <span class="pl-c1">CDAlertViewAction</span>(<span class="pl-c1">title</span>: <span class="pl-s"><span class="pl-pds">"</span>Action Title<span class="pl-pds">"</span></span>, <span class="pl-c1">font</span>: UIFont.<span class="pl-smi">yourCustomFont</span>, <span class="pl-c1">textColor</span>: UIColor.<span class="pl-smi">yourTextColor</span>, <span class="pl-c1">backgroundColor</span>: UIColor.<span class="pl-smi">yourBackgroundColor</span>, <span class="pl-c1">handler</span>: { action <span class="pl-k">in</span> })
+alertView.<span class="pl-c1">addAction</span>(action)</pre></div>
+
+<p><strong>NOTE:</strong> Aligning buttons vertical and horizontal is possible. But using more than 3 buttons in horizontal placement is not possible. </p>
+
+<h3>
+<a id="list-of-cdalertviewaction-options" class="anchor" href="#list-of-cdalertviewaction-options" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>List of CDAlertViewAction Options</h3>
+
+<p><code>buttonTitle: String</code> -&gt; Set's the action button title</p>
+
+<p><code>buttonTextColor: UIColor</code> -&gt; Sets the action button title color. Default value is RGB(27,169,225).</p>
+
+<p><code>buttonFont: UIFont</code> -&gt; Sets the action button title font. Default value is <code>UIFont.systemFont(ofSize: 17)</code>.</p>
+
+<p><code>buttonBackgroundColor: UIColor</code> -&gt; Sets the background color of action button. If not set, it uses <code>alertBackgroundColor</code> of CDAlertView.</p>
+
+<h2>
+<a id="example" class="anchor" href="#example" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Example</h2>
+
+<p>To run the example project, clone the repo, and run <code>pod install</code> from the Example directory first.</p>
+
+<h2>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installation</h2>
+
+<h3>
+<a id="using-cocoapods" class="anchor" href="#using-cocoapods" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Using <a href="http://cocoapods.org">CocoaPods</a>
+</h3>
+
+<p>CDAlertView is available through CocoaPods. To install it, simply add the following line to your <code>Podfile</code>:</p>
+
+<div class="highlight highlight-source-ruby"><pre>pod <span class="pl-s"><span class="pl-pds">"</span>CDAlertView<span class="pl-pds">"</span></span></pre></div>
+
+<h3>
+<a id="using-carthage" class="anchor" href="#using-carthage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Using <a href="https://github.com/Carthage/Carthage">Carthage</a>
+</h3>
+
+<p>CDAlertView is available through Carthage. To install it, simply add the following line to your <code>Cartfile</code>:</p>
+
+<pre><code>github "candostdagdeviren/CDAlertView"
+</code></pre>
+
+<h2>
+<a id="requirements" class="anchor" href="#requirements" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Requirements</h2>
+
+<ul>
+<li>Xcode 8</li>
+<li>iOS 9.0+</li>
+</ul>
+
+<h2>
+<a id="author" class="anchor" href="#author" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Author</h2>
+
+<p>Candost Dagdeviren, <a href="mailto:candostdagdeviren@gmail.com">candostdagdeviren@gmail.com</a></p>
+
+<h3>
+<a id="icons" class="anchor" href="#icons" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Icons</h3>
+
+<p>Thanks to <a href="https://icons8.com/">Icons8</a> for beautiful icons.</p>
+
+<h2>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>License</h2>
+
+<p>CDAlertView is available under the MIT license. See the LICENSE file for more info.</p>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/candostdagdeviren/CDAlertView">CDAlertView</a> is maintained by <a href="https://github.com/candostdagdeviren">candostdagdeviren</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
