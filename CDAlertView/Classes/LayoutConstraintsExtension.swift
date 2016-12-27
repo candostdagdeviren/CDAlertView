@@ -74,13 +74,13 @@ internal extension UIView {
     }
 
     func setHeight(_ height: CGFloat) {
-        self.superview!.addConstraint(NSLayoutConstraint(item: self,
-                                                         attribute: .height,
-                                                         relatedBy: .equal,
-                                                         toItem: nil,
-                                                         attribute: .notAnAttribute,
-                                                         multiplier: 1,
-                                                         constant: height))
+        self.addConstraint(NSLayoutConstraint(item: self,
+                                              attribute: .height,
+                                              relatedBy: .equal,
+                                              toItem: nil,
+                                              attribute: .notAnAttribute,
+                                              multiplier: 1,
+                                              constant: height))
     }
 
     func setMaxHeight(_ height: CGFloat) {

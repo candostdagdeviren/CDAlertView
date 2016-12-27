@@ -20,8 +20,11 @@ class ViewController: UIViewController {
         super.viewDidAppear(animated)
         let alert = CDAlertView(title: "Title", message: "Message", type: .notification)
         let action = CDAlertViewAction(title: "DONE")
+        alert.isTextFieldHidden = false
         alert.add(action: action)
-        alert.show()
+        alert.show { (alert) in
+            print(alert.textFieldText)
+        }
         
     }
 }
