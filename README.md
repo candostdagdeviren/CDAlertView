@@ -38,6 +38,11 @@ alert.add(action: nevermindAction)
 alert.show()
 ```
 
+To enable text field in popup:
+```swift
+alert.isTextFieldHidden = false
+```
+
 CDAlertView types:
 
 ```swift
@@ -77,6 +82,30 @@ alert.circleFillColor = UIColor.yourAmazingColor
 `circleFillColor: UIColor` -> Sets background color of header icon. (Color of circle area)
 
 `isActionButtonsVertical: Bool` -> Alignes action buttons vertical. Default is `false`. Maximum number of horizontal buttons is 3.
+
+If you enabled text field with setting `isTextFieldHidden` property to `false`, following properties will be available also:
+
+`textFieldFont: UIFont` -> Font of textField's text
+
+`textFieldIsSecureTextEntry: Bool` -> Sets the `isSecureTextEntry` property of `UITextField`
+
+`textFieldReturnKeyType: UIReturnKeyType` -> Sets the `returnKeyType` property of `UITextField`
+
+`textFieldTextAlignment: NSTextAlignment` -> Sets the `textAlignment` property of `UITextField`. Default is `.left`.
+
+`textFieldPlaceholderText: String?` -> Sets the placeholder text for `UITextField`.
+
+`textFieldAutocapitalizationType: UITextAutocapitalizationType` -> Sets the `autocapitalizationType` property of `UITextField`. Default is `.none`.
+
+`textFieldBackgroundColor: UIColor` -> Sets `UITextField`'s background color.
+
+`textFieldTintColor: UIColor` -> Sets `UITextField`'s tint color.
+
+`textFieldText: String?` -> Sets & gets `UITextField`'s text.
+
+`textFieldHeight: CGFloat` -> Sets the height of `UITextField`.
+
+`textFieldDelegate: UITextViewDelegate?` -> Sets the delegate of `UITextField`. Default delegate is `CDAlertView`. If you overwrite this, you're responsible for resigning the `UITextField`.
 
 ### Advanced action initialization:
 
