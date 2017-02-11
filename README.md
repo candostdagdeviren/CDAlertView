@@ -61,6 +61,17 @@ let alert = CDAlertView(title: "Awesome Title", message: "Well explained message
 alert.circleFillColor = UIColor.yourAmazingColor
 ```
 
+### Hide Alert with your animation
+```swift
+let alert = CDAlertView(title: "Awesome Title", message: "Well explained message!", type: .success)
+alert.hideAnimations = { (center, transform, alpha) in
+    transform = CGAffineTransform(scaleX: 3, y: 3)
+    alpha = 0
+}
+alert.hideAnimationDuration = 0.88
+alert.show()
+```
+
 ### List of Available CDAlertView Options
 
 `titleTextColor: UIColor` -> Sets title's text color
@@ -82,6 +93,10 @@ alert.circleFillColor = UIColor.yourAmazingColor
 `circleFillColor: UIColor` -> Sets background color of header icon. (Color of circle area)
 
 `isActionButtonsVertical: Bool` -> Alignes action buttons vertical. Default is `false`. Maximum number of horizontal buttons is 3.
+
+`hideAnimationDuration: TimeInterval` -> Sets the animation duration of hide animation
+
+`hideAnimations: CDAlertAnimationBlock` -> Sets the hiding animations depending on the `center`, `transform` and `alpha` values. You can create your animations by changing these values for alert popup.
 
 If you enabled text field with setting `isTextFieldHidden` property to `false`, following properties will be available also:
 
@@ -116,7 +131,7 @@ let action = CDAlertViewAction(title: "Action Title", font: UIFont.yourCustomFon
 alertView.addAction(action)
 ```
 
-**NOTE:** Aligning buttons vertical and horizontal is possible. But using more than 3 buttons in horizontal placement is not possible. 
+**NOTE:** Aligning buttons vertical and horizontal is possible. But using more than 3 buttons in horizontal placement is not possible.
 
 ### List of CDAlertViewAction Options
 

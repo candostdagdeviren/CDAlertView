@@ -73,7 +73,7 @@ open class CDAlertView: UIView {
             titleLabel.font = titleFont
         }
     }
-    
+
     public var messageFont: UIFont = UIFont.systemFont(ofSize: 13) {
         didSet {
             messageLabel.font = messageFont
@@ -154,6 +154,10 @@ open class CDAlertView: UIView {
         }
     }
 
+    public var hideAnimations: CDAlertAnimationBlock?
+
+    public var hideAnimationDuration: TimeInterval = 0.5
+
     public var textFieldHeight: CGFloat = 35.0
 
     public var isActionButtonsVertical: Bool = false
@@ -168,9 +172,38 @@ open class CDAlertView: UIView {
 
     public var popupWidth: CGFloat = 255.0
 
+    public typealias CDAlertAnimationBlock = ((_ center: inout CGPoint, _ transform: inout CGAffineTransform, _ alpha: inout CGFloat) -> Void)?
+
     fileprivate var popupCenterYPositionBeforeKeyboard: CGFloat?
 
     fileprivate var popupView: UIView = UIView(frame: .zero)
+
+    fileprivate var popupCenter: CGPoint {
+        get {
+            return popupView.center
+        }
+        set {
+            popupView.center = newValue
+        }
+    }
+
+    fileprivate var popupTransform: CGAffineTransform {
+        get {
+            return popupView.transform
+        }
+        set {
+            popupView.transform = newValue
+        }
+    }
+
+    fileprivate var popupAlpha: CGFloat {
+        get {
+            return popupView.alpha
+        }
+        set {
+            popupView.alpha = newValue
+        }
+    }
 
     private struct CDAlertViewConstants {
         let headerHeight: CGFloat = 56
@@ -238,7 +271,8 @@ open class CDAlertView: UIView {
         }
     }
 
-    public func show(_ completion:((CDAlertView) -> Swift.Void)? = nil) {
+    public func show(_ completion:((CDAlertView) -> Void)? = nil) {
+
         UIApplication.shared.keyWindow?.addSubview(self)
         alignToParent(with: 0)
         addSubview(backgroundView)
@@ -250,41 +284,49 @@ open class CDAlertView: UIView {
         createViews()
         loadActionButtons()
         popupViewInitialFrame = popupView.frame
+
         completionBlock = completion
     }
 
-    public func hide(isPopupAnimated: Bool) {
+    public func hide(animations: CDAlertAnimationBlock? = nil,
+                     isPopupAnimated: Bool) {
         if !isTextFieldHidden {
             textField.resignFirstResponder()
             NotificationCenter.default.removeObserver(self)
         }
-        UIView.animate(withDuration: 0.5, animations: { [unowned self] in
-            if isPopupAnimated {
-                var offScreenCenter = self.popupView.center
-                offScreenCenter.y += self.constants.minVelocity * 3
-                self.popupView.center = offScreenCenter
-            }
-            self.transform = CGAffineTransform(translationX: 0.5, y: 0.5)
-            self.alpha = 0
-            }, completion: { (finished) in
-                if finished {
-                    self.removeFromSuperview()
-                    if let completion = self.completionBlock {
-                        completion(self)
-                    }
-                }
+
+        UIView.animate(withDuration: hideAnimationDuration,
+                       animations: { [unowned self] in
+                        if isPopupAnimated {
+                            if let animations = animations {
+                                animations?(&self.popupCenter, &self.popupTransform, &self.popupAlpha)
+                            } else {
+                                var offScreenCenter = self.popupView.center
+                                offScreenCenter.y += self.constants.minVelocity * 3
+                                self.popupView.center = offScreenCenter
+                                self.alpha = 0
+                            }
+                        }
+            },
+                       completion: { (finished) in
+                        self.removeFromSuperview()
+                        if let completion = self.completionBlock {
+                            completion(self)
+                        }
         })
+
     }
 
     public func add(action: CDAlertViewAction) {
         actions.append(action)
     }
 
-    open override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+    open override func touchesEnded(_ touches: Set<UITouch>,
+                                    with event: UIEvent?) {
         if actions.count == 0 {
             touches.forEach { (touch) in
                 if touch.view == self.backgroundView {
-                    self.hide(isPopupAnimated: true)
+                    self.hide(animations: self.hideAnimations, isPopupAnimated: true)
                 }
             }
         }
@@ -309,7 +351,6 @@ open class CDAlertView: UIView {
             UIView.animate(withDuration: 0.5, delay: 0.2, options: .allowAnimatedContent, animations: { [weak self] in
                 guard let strongSelf = self else { return }
                 strongSelf.popupView.center.y = initialY
-
             })
         }
     }
@@ -325,11 +366,12 @@ open class CDAlertView: UIView {
             let origin = CGPoint(x: backgroundView.center.x - popupViewInitialFrame.size.width/2,
                                  y: backgroundView.center.y - popupViewInitialFrame.size.height/2)
             let velocity = recognizer.velocity(in: backgroundView)
-            if !CGRect(origin: origin, size: popupViewInitialFrame.size).contains(location) ||
+            if !CGRect(origin: origin,
+                       size: popupViewInitialFrame.size).contains(location) ||
                 (velocity.x > constants.activeVelocity || velocity.y > constants.activeVelocity) {
                 UIView.animate(withDuration: 1, animations: {
                     self.popupView.center = self.calculatePopupViewOffScreenCenter(from: velocity)
-                    self.hide(isPopupAnimated: false)
+                    self.hide(animations: self.hideAnimations, isPopupAnimated: false)
                 })
             } else {
                 UIView.animate(withDuration: 0.5, animations: {
@@ -560,7 +602,7 @@ open class CDAlertView: UIView {
 
 extension CDAlertView: CDAlertViewActionDelegate {
     internal func didTap(action: CDAlertViewAction) {
-        self.hide(isPopupAnimated: true)
+        self.hide(animations: self.hideAnimations, isPopupAnimated: true)
     }
 }
 

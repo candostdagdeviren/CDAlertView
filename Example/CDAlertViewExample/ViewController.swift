@@ -22,10 +22,14 @@ class ViewController: UIViewController {
         let action = CDAlertViewAction(title: "DONE")
         alert.isTextFieldHidden = false
         alert.add(action: action)
-        alert.show { (alert) in
-            print(alert.textFieldText)
+        alert.hideAnimations = { (center, transform, alpha) in
+            transform = .identity
+            alpha = 0
         }
-        
+
+        alert.show() { (alert) in
+            print("completed")
+        }
     }
 }
 
