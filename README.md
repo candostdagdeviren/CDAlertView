@@ -143,6 +143,12 @@ alertView.addAction(action)
 
 `buttonBackgroundColor: UIColor` -> Sets the background color of action button. If not set, it uses `alertBackgroundColor` of CDAlertView.
 
+### List of available methods
+
+`textFieldBecomeFirstResponder()` -> Calls the `becomeFirstResponder()` method of `textField` if  `alert.isTextFieldHidden` set to `true`. Otherwise, does nothing.
+
+`textFieldResignFirstResponder()` -> Calls the `resignFirstResponder()` method of `textField` if  `alert.isTextFieldHidden` set to `true`. Otherwise, does nothing.
+
 ## Example
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
