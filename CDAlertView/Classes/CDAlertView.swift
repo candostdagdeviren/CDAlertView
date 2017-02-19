@@ -320,6 +320,18 @@ open class CDAlertView: UIView {
     public func add(action: CDAlertViewAction) {
         actions.append(action)
     }
+    
+    public func textFieldBecomeFirstResponder() {
+        if !isTextFieldHidden {
+            textField.becomeFirstResponder()
+        }
+    }
+    
+    public func textFieldResignFirstResponder() {
+        if !isTextFieldHidden {
+            textField.resignFirstResponder()
+        }
+    }
 
     open override func touchesEnded(_ touches: Set<UITouch>,
                                     with event: UIEvent?) {
