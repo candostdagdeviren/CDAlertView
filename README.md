@@ -43,6 +43,13 @@ To enable text field in popup:
 alert.isTextFieldHidden = false
 ```
 
+Custom view is also supported. If you want to use custom view, you are responsible for the height of custom view. Custom view is used in `UIStackView`.
+```swift
+let myCustomView = UIVIew(frame: myFrame)
+// Don't forget to handle height of `myCustomView`
+alert.customView = myCustomView
+```
+
 CDAlertView types:
 
 ```swift

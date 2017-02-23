@@ -154,6 +154,8 @@ open class CDAlertView: UIView {
         }
     }
 
+    public var customView: UIView?
+
     public var hideAnimations: CDAlertAnimationBlock?
 
     public var hideAnimationDuration: TimeInterval = 0.5
@@ -441,6 +443,11 @@ open class CDAlertView: UIView {
         createStackView()
         createTitleLabel()
         createMessageLabel()
+
+        if let customView = customView {
+            createCustomView(customView)
+        }
+        
         if !isTextFieldHidden {
             createTextField()
         }
@@ -556,6 +563,11 @@ open class CDAlertView: UIView {
         messageLabel.setMaxHeight(290)
         messageLabel.font = messageFont
         contentStackView.addArrangedSubview(messageLabel)
+    }
+
+    private func createCustomView(_ custom: UIView) {
+        custom.clipsToBounds = true
+        contentStackView.addArrangedSubview(custom)
     }
 
     private func createTextField() {
