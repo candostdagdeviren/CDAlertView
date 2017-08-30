@@ -290,7 +290,14 @@ open class CDAlertView: UIView {
         completionBlock = completion
     }
 
-    public func hide(animations: CDAlertAnimationBlock? = nil,
+    // Instead of defining default `nil` parameter for `hide(animations: CDAlertAnimationBlock?, isPopupAnimated:Bool)` method
+    // we define this method for Objective-C compatibility.
+    // CDAlertAnimationBlock is not supported in Objective-C
+    public func hide(isPopupAnimated: Bool) {
+        hide(animations: nil, isPopupAnimated: isPopupAnimated)
+    }
+
+    public func hide(animations: CDAlertAnimationBlock?,
                      isPopupAnimated: Bool) {
         if !isTextFieldHidden {
             textField.resignFirstResponder()
