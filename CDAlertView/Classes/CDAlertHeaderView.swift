@@ -131,11 +131,11 @@ internal class CDAlertHeaderView: UIView {
         imageView.contentMode = .center
         addSubview(imageView)
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.centerHorizontally()
+        imageView.cd_centerHorizontally()
 
-        imageView.alignToTop(of: self, margin: 12, multiplier: 1)
-        imageView.setHeight(32)
-        imageView.setWidth(32)
+        imageView.cd_alignToTop(of: self, margin: 12, multiplier: 1)
+        imageView.cd_setHeight(32)
+        imageView.cd_setWidth(32)
         
         return imageView
     }

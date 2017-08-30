@@ -276,9 +276,9 @@ open class CDAlertView: UIView {
     public func show(_ completion:((CDAlertView) -> Void)? = nil) {
 
         UIApplication.shared.keyWindow?.addSubview(self)
-        alignToParent(with: 0)
+        cd_alignToParent(with: 0)
         addSubview(backgroundView)
-        backgroundView.alignToParent(with: 0)
+        backgroundView.cd_alignToParent(with: 0)
         if !isActionButtonsVertical && actions.count > 3 {
             debugPrint("CDAlertView: You can't use more than 3 actions in horizontal mode. If you need more than 3 buttons, consider using vertical alignment for buttons. Setting vertical alignments for buttons is available via isActionButtonsVertical property of AlertView")
             actions.removeSubrange(3..<actions.count)
@@ -453,10 +453,10 @@ open class CDAlertView: UIView {
         }
 
         popupView.translatesAutoresizingMaskIntoConstraints = false
-        popupView.centerHorizontally()
-        popupView.centerVertically()
-        popupView.setWidth(popupWidth)
-        popupView.setMaxHeight(430)
+        popupView.cd_centerHorizontally()
+        popupView.cd_centerVertically()
+        popupView.cd_setWidth(popupWidth)
+        popupView.cd_setMaxHeight(430)
         popupView.sizeToFit()
         popupView.layoutIfNeeded()
         if actions.count == 0 {
@@ -476,10 +476,10 @@ open class CDAlertView: UIView {
         headerView.circleFillColor = circleFillColor
         popupView.addSubview(headerView)
         headerView.translatesAutoresizingMaskIntoConstraints = false
-        headerView.alignTopToParent(with: 0)
-        headerView.alignLeftToParent(with: 0)
-        headerView.alignRightToParent(with: 0)
-        headerView.setHeight(constants.headerHeight)
+        headerView.cd_alignTopToParent(with: 0)
+        headerView.cd_alignLeftToParent(with: 0)
+        headerView.cd_alignRightToParent(with: 0)
+        headerView.cd_setHeight(constants.headerHeight)
     }
 
     private func createButtonContainer() {
@@ -500,17 +500,17 @@ open class CDAlertView: UIView {
         buttonView.layer.mask = roundLayer
         popupView.addSubview(buttonView)
         buttonView.translatesAutoresizingMaskIntoConstraints = false
-        buttonView.alignBottomToParent(with: 0)
-        buttonView.alignLeftToParent(with: 0)
-        buttonView.alignRightToParent(with: 0)
+        buttonView.cd_alignBottomToParent(with: 0)
+        buttonView.cd_alignLeftToParent(with: 0)
+        buttonView.cd_alignRightToParent(with: 0)
         if actions.count == 0 {
-            buttonView.setHeight(0)
+            buttonView.cd_setHeight(0)
         } else {
 
             let backgroundColoredView = UIView(frame: .zero)
             backgroundColoredView.backgroundColor = actionSeparatorColor
             buttonView.addSubview(backgroundColoredView)
-            backgroundColoredView.alignToParent(with: 0)
+            backgroundColoredView.cd_alignToParent(with: 0)
 
             buttonContainer.spacing = constants.separatorThickness
             if isActionButtonsVertical {
@@ -518,13 +518,13 @@ open class CDAlertView: UIView {
             } else {
                 buttonContainer.axis = .horizontal
             }
-            buttonView.setHeight(height)
+            buttonView.cd_setHeight(height)
             buttonContainer.translatesAutoresizingMaskIntoConstraints = false
             backgroundColoredView.addSubview(buttonContainer)
-            buttonContainer.alignTopToParent(with: constants.separatorThickness)
-            buttonContainer.alignBottomToParent(with: 0)
-            buttonContainer.alignLeftToParent(with: 0)
-            buttonContainer.alignRightToParent(with: 0)
+            buttonContainer.cd_alignTopToParent(with: constants.separatorThickness)
+            buttonContainer.cd_alignBottomToParent(with: 0)
+            buttonContainer.cd_alignLeftToParent(with: 0)
+            buttonContainer.cd_alignRightToParent(with: 0)
         }
     }
 
@@ -532,25 +532,25 @@ open class CDAlertView: UIView {
         coverView.backgroundColor = alertBackgroundColor
         popupView.addSubview(coverView)
         coverView.translatesAutoresizingMaskIntoConstraints = false
-        coverView.alignLeftToParent(with: 0)
-        coverView.alignRightToParent(with: 0)
-        coverView.place(below: headerView, margin: 0)
-        coverView.place(above: buttonView, margin: 0)
+        coverView.cd_alignLeftToParent(with: 0)
+        coverView.cd_alignRightToParent(with: 0)
+        coverView.cd_place(below: headerView, margin: 0)
+        coverView.cd_place(above: buttonView, margin: 0)
         contentStackView.distribution = .equalSpacing
         contentStackView.axis = .vertical
         contentStackView.spacing = 8
         coverView.addSubview(contentStackView)
         contentStackView.translatesAutoresizingMaskIntoConstraints = false
-        contentStackView.alignTopToParent(with: 0)
-        contentStackView.alignBottomToParent(with: 16)
-        contentStackView.alignRightToParent(with: 16)
-        contentStackView.alignLeftToParent(with: 16)
+        contentStackView.cd_alignTopToParent(with: 0)
+        contentStackView.cd_alignBottomToParent(with: 16)
+        contentStackView.cd_alignRightToParent(with: 16)
+        contentStackView.cd_alignLeftToParent(with: 16)
     }
 
     private func createTitleLabel() {
         titleLabel.numberOfLines = 0
         titleLabel.textAlignment = .center
-        titleLabel.setMaxHeight(100)
+        titleLabel.cd_setMaxHeight(100)
         titleLabel.textColor = titleTextColor
         titleLabel.font = titleFont
         contentStackView.addArrangedSubview(titleLabel)
@@ -560,7 +560,7 @@ open class CDAlertView: UIView {
         messageLabel.numberOfLines = 0
         messageLabel.textAlignment = .center
         messageLabel.textColor = messageTextColor
-        messageLabel.setMaxHeight(290)
+        messageLabel.cd_setMaxHeight(290)
         messageLabel.font = messageFont
         contentStackView.addArrangedSubview(messageLabel)
     }
@@ -585,7 +585,7 @@ open class CDAlertView: UIView {
         textField.isHidden = isTextFieldHidden
         textField.placeholder = textFieldPlaceholderText
         textField.autocapitalizationType = textFieldAutocapitalizationType
-        textField.setHeight(textFieldHeight)
+        textField.cd_setHeight(textFieldHeight)
         contentStackView.addArrangedSubview(textField)
     }
 
@@ -614,12 +614,12 @@ open class CDAlertView: UIView {
             buttonContainer.addArrangedSubview(button)
             button.translatesAutoresizingMaskIntoConstraints = false
             if isActionButtonsVertical {
-                button.setWidth(buttonContainer.frame.size.width)
+                button.cd_setWidth(buttonContainer.frame.size.width)
             } else {
-                button.setWidth((buttonContainer.frame.size.width-CGFloat(actions.count-1) * constants.separatorThickness)/CGFloat(actions.count))
+                button.cd_setWidth((buttonContainer.frame.size.width-CGFloat(actions.count-1) * constants.separatorThickness)/CGFloat(actions.count))
             }
 
-            button.setHeight(CGFloat(buttonsHeight))
+            button.cd_setHeight(CGFloat(buttonsHeight))
         }
     }
 }
