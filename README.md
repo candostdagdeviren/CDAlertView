@@ -185,7 +185,7 @@ github "candostdagdeviren/CDAlertView"
 
 ## Author
 
-Candost Dagdeviren, candostdagdeviren@gmail.com
+[Candost Dagdeviren](http://bit.ly/2oWdga9)
 
 ### Icons
 
