@@ -418,8 +418,6 @@ open class CDAlertView: UIView {
             break
         case .failed:
             break
-        case .failed:
-            break
         case .possible:
             break
         }
