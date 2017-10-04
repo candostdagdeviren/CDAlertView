@@ -365,7 +365,7 @@ open class CDAlertView: UIView {
         guard let coverViewWindowCoordinates = coverView.superview?.convert(CGPoint(x: 0, y: coverView.frame.maxY), to: nil) else {
             return
         }
-        if (coverViewWindowCoordinates.y > (keyboardSize.minY - keyboardSize.height)) == false {
+        if coverViewWindowCoordinates.y <= (keyboardSize.minY - keyboardSize.height) {
             return
         }
         popupCenterYPositionBeforeKeyboard = popupView.center.y
@@ -412,13 +412,7 @@ open class CDAlertView: UIView {
                 self.popupView.center = self.backgroundView.center
             })
             break
-        case .began:
-            break
-        case .changed:
-            break
-        case .failed:
-            break
-        case .possible:
+        default:
             break
         }
     }
