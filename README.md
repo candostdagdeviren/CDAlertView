@@ -162,6 +162,8 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 ## Installation
 
+**This library supports Swift 4. Use `0.6.1` or older versions for Swift 3.1 support.**
+
 ### Using [CocoaPods](http://cocoapods.org)
 
 CDAlertView is available through CocoaPods. To install it, simply add the following line to your `Podfile`:
@@ -180,12 +182,9 @@ github "candostdagdeviren/CDAlertView"
 
 ## Requirements
 
-* Xcode 8
-* iOS 9.0+
-
-### Swift4
-
 * Xcode 9
+* Swift 4
+* iOS 9.0+
 
 ## Author
 
