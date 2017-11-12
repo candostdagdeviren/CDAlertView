@@ -186,10 +186,6 @@ github "candostdagdeviren/CDAlertView"
 * Swift 4
 * iOS 9.0+
 
-## Author
-
-[Candost Dagdeviren](http://bit.ly/2oWdga9)
-
 ### Icons
 
 Thanks to [Icons8](https://icons8.com/) for beautiful icons.
