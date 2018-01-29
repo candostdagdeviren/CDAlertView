@@ -162,7 +162,7 @@ open class CDAlertView: UIView {
 
     public var hideAnimationDuration: TimeInterval = 0.5
 
-    public var autoHideTime: TimeInterval!
+    public var autoHideTime: TimeInterval? = nil
     
     public var textFieldHeight: CGFloat = 35.0
 
@@ -297,7 +297,7 @@ open class CDAlertView: UIView {
         
         if(self.autoHideTime != nil) {
             
-            hideTimer = Timer.scheduledTimer(timeInterval: self.autoHideTime, target: self, selector: #selector(self.hideTimeOut(_:)), userInfo: nil, repeats: false)
+            hideTimer = Timer.scheduledTimer(timeInterval: self.autoHideTime!, target: self, selector: #selector(self.hideTimeOut(_:)), userInfo: nil, repeats: false)
         }
     }
 
