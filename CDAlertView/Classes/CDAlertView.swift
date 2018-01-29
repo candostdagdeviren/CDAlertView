@@ -162,6 +162,8 @@ open class CDAlertView: UIView {
 
     public var hideAnimationDuration: TimeInterval = 0.5
 
+    public var autoHideTime: TimeInterval!
+    
     public var textFieldHeight: CGFloat = 35.0
 
     public var isActionButtonsVertical: Bool = false
@@ -235,6 +237,8 @@ open class CDAlertView: UIView {
     private var messageLabel: UILabel = UILabel(frame: .zero)
     private var textField: UITextField = UITextField(frame: .zero)
     private var type: CDAlertViewType!
+    weak private var hideTimer: Timer!
+    
     private lazy var actions: [CDAlertViewAction] = [CDAlertViewAction]()
 
     public convenience init(title: String?,
@@ -290,8 +294,18 @@ open class CDAlertView: UIView {
         popupViewInitialFrame = popupView.frame
 
         completionBlock = completion
+        
+        if(self.autoHideTime != nil) {
+            
+            hideTimer = Timer.scheduledTimer(timeInterval: self.autoHideTime, target: self, selector: #selector(self.hideTimeOut(_:)), userInfo: nil, repeats: false)
+        }
     }
 
+    @objc func hideTimeOut(_ timer:Timer) {
+        
+        self.hide(animations: self.hideAnimations, isPopupAnimated: true)
+    }
+    
     // Instead of defining default `nil` parameter for `hide(animations: CDAlertAnimationBlock?, isPopupAnimated:Bool)` method
     // we define this method for Objective-C compatibility.
     // CDAlertAnimationBlock is not supported in Objective-C
@@ -301,6 +315,10 @@ open class CDAlertView: UIView {
 
     public func hide(animations: CDAlertAnimationBlock?,
                      isPopupAnimated: Bool) {
+        
+        self.hideTimer?.invalidate()
+        self.hideTimer = nil
+        
         if !isTextFieldHidden {
             textField.resignFirstResponder()
             NotificationCenter.default.removeObserver(self)
