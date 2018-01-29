@@ -295,9 +295,8 @@ open class CDAlertView: UIView {
 
         completionBlock = completion
         
-        if(self.autoHideTime != nil) {
-            
-            hideTimer = Timer.scheduledTimer(timeInterval: self.autoHideTime!, target: self, selector: #selector(self.hideTimeOut(_:)), userInfo: nil, repeats: false)
+        if let autoHideTime = self.autoHideTime {
+            hideTimer = Timer.scheduledTimer(timeInterval: autoHideTime, target: self, selector: #selector(self.hideTimeOut(_:)), userInfo: nil, repeats: false)
         }
     }
 
