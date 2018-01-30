@@ -79,6 +79,12 @@ alert.hideAnimationDuration = 0.88
 alert.show()
 ```
 
+### Hide Alert with timer
+```swift
+let alert = CDAlertView(title: "Awesome Title", message: "Well explained message!", type: .success)
+alert.autoHideTime = 4.5 // This will hide alert box after 4.5 seconds
+```
+
 ### List of Available CDAlertView Options
 
 `titleTextColor: UIColor` -> Sets title's text color
@@ -128,6 +134,8 @@ If you enabled text field with setting `isTextFieldHidden` property to `false`, 
 `textFieldHeight: CGFloat` -> Sets the height of `UITextField`.
 
 `textFieldDelegate: UITextViewDelegate?` -> Sets the delegate of `UITextField`. Default delegate is `CDAlertView`. If you overwrite this, you're responsible for resigning the `UITextField`.
+
+`autoHideTime: TimeInterval?` -> Sets the time interval for dismiss time. Default is `nil`.
 
 ### Advanced action initialization:
 
