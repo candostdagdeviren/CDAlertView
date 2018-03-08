@@ -41,6 +41,7 @@ internal class CDAlertHeaderView: UIView {
     internal var isIconFilled: Bool = false
     internal var alertBackgroundColor: UIColor = UIColor.white.withAlphaComponent(0.9)
     internal var hasShadow: Bool = true
+    internal var hasRoundCorners = true
     private var fillColor: UIColor!
     private var type: CDAlertViewType?
     private var imageView: UIImageView?
@@ -57,19 +58,25 @@ internal class CDAlertHeaderView: UIView {
     // MARK: UIView
     
     override func draw(_ rect: CGRect) {
+        var cornerRadii = CGSize(width: 8, height: 8)
+        if hasRoundCorners == false {
+            cornerRadii = CGSize(width: 0, height: 0)
+        }
         let path = UIBezierPath(roundedRect: CGRect(x: 0, y: 16, width: rect.size.width, height: rect.size.height-16),
                                 byRoundingCorners: [.topLeft, .topRight],
-                                cornerRadii: CGSize(width: 8, height: 8))
+                                cornerRadii: cornerRadii)
         alertBackgroundColor.setFill()
         path.fill()
 
-        let curve = UIBezierPath(arcCenter: CGPoint(x: rect.size.width/2, y: 28),
-                                 radius: 28,
-                                 startAngle:6.84 * CGFloat.pi / 6,
-                                 endAngle: 11.155 * CGFloat.pi / 6,
-                                 clockwise: true)
-        alertBackgroundColor.setFill()
-        curve.fill()
+        if hasRoundCorners == true {
+            let curve = UIBezierPath(arcCenter: CGPoint(x: rect.size.width/2, y: 28),
+                                     radius: 28,
+                                     startAngle:6.84 * CGFloat.pi / 6,
+                                     endAngle: 11.155 * CGFloat.pi / 6,
+                                     clockwise: true)
+            alertBackgroundColor.setFill()
+            curve.fill()
+        }
 
         let innerCircle = UIBezierPath(arcCenter: CGPoint(x: rect.size.width/2, y: 28),
                                        radius: 24,
