@@ -24,13 +24,13 @@ open class CDAlertViewAction: NSObject {
 
     fileprivate weak var delegate: CDAlertViewActionDelegate?
 
-    private var handlerBlock: ((CDAlertViewAction) -> Swift.Void)?
+    private var handlerBlock: ((CDAlertViewAction) -> Swift.Bool)?
 
     public convenience init(title: String?,
                             font: UIFont? = UIFont.systemFont(ofSize: 17),
                             textColor: UIColor? = UIColor(red: 27 / 255, green: 169 / 255, blue: 225 / 255, alpha: 1),
                             backgroundColor: UIColor? = nil,
-                            handler: ((CDAlertViewAction) -> Swift.Void)? = nil) {
+                            handler: ((CDAlertViewAction) -> Swift.Bool)? = nil) {
         self.init()
         buttonTitle = title
         buttonTextColor = textColor
@@ -44,7 +44,9 @@ open class CDAlertViewAction: NSObject {
             self.delegate?.didTap(action: self)
             return
         }
-        handler(self)
+        if handler(self) == false {
+            return
+        }
         self.delegate?.didTap(action: self)
     }
 }
