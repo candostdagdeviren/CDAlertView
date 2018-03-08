@@ -229,6 +229,7 @@ open class CDAlertView: UIView {
 
     private struct CDAlertViewConstants {
         let headerHeight: CGFloat = 56
+        let headerHeightWithoutCircle: CGFloat = 30
         let activeVelocity: CGFloat = 150
         let minVelocity: CGFloat = 300
         let separatorThickness: CGFloat = 1.0 / UIScreen.main.scale
@@ -254,6 +255,7 @@ open class CDAlertView: UIView {
     private var textField: UITextField = UITextField(frame: .zero)
     private var type: CDAlertViewType!
     weak private var hideTimer: Timer!
+    public var headerHeight: CGFloat = CDAlertViewConstants().headerHeight
     
     private lazy var actions: [CDAlertViewAction] = [CDAlertViewAction]()
 
@@ -285,9 +287,9 @@ open class CDAlertView: UIView {
             popupView.layer.masksToBounds = false
             let path = UIBezierPath()
             path.move(to: CGPoint(x: 0.0, y: popupView.bounds.size.height))
-            path.addLine(to: CGPoint(x: 0, y: constants.headerHeight))
+            path.addLine(to: CGPoint(x: 0, y: headerHeight))
             path.addLine(to: CGPoint(x: popupView.bounds.size.width,
-                                     y: CGFloat(constants.headerHeight - 5)))
+                                     y: CGFloat(headerHeight - 5)))
             path.addLine(to: CGPoint(x: popupView.bounds.size.width,
                                      y: popupView.bounds.size.height))
             path.close()
@@ -527,12 +529,15 @@ open class CDAlertView: UIView {
         headerView.hasRoundCorners = hasRoundCorners
         headerView.alertBackgroundColor = alertBackgroundColor
         headerView.circleFillColor = circleFillColor
+        if circleFillColor == .clear {
+            headerHeight = constants.headerHeightWithoutCircle
+        }
         popupView.addSubview(headerView)
         headerView.translatesAutoresizingMaskIntoConstraints = false
         headerView.cd_alignTopToParent(with: 0)
         headerView.cd_alignLeftToParent(with: 0)
         headerView.cd_alignRightToParent(with: 0)
-        headerView.cd_setHeight(constants.headerHeight)
+        headerView.cd_setHeight(headerHeight)
     }
 
     private func createButtonContainer() {
