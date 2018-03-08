@@ -170,6 +170,8 @@ open class CDAlertView: UIView {
         }
     }
 
+    public var hasRoundCorners = true
+
     public var customView: UIView?
 
     public var hideAnimations: CDAlertAnimationBlock?
@@ -472,6 +474,7 @@ open class CDAlertView: UIView {
 
 
     private func roundBottomOfCoverView() {
+        guard hasRoundCorners == false else {return}
         let roundCornersPath = UIBezierPath(roundedRect: CGRect(x: 0.0,
                                                                 y: 0.0,
                                                                 width: popupWidth,
@@ -521,6 +524,7 @@ open class CDAlertView: UIView {
         headerView = CDAlertHeaderView(type: type, isIconFilled: isHeaderIconFilled)
         headerView.backgroundColor = UIColor.clear
         headerView.hasShadow = hasShadow
+        headerView.hasRoundCorners = hasRoundCorners
         headerView.alertBackgroundColor = alertBackgroundColor
         headerView.circleFillColor = circleFillColor
         popupView.addSubview(headerView)
@@ -546,7 +550,9 @@ open class CDAlertView: UIView {
                                             cornerRadii: CGSize(width: 8.0, height: 8.0))
         let roundLayer = CAShapeLayer()
         roundLayer.path = roundCornersPath.cgPath
-        buttonView.layer.mask = roundLayer
+        if hasRoundCorners == true {
+            buttonView.layer.mask = roundLayer
+        }
         popupView.addSubview(buttonView)
         buttonView.translatesAutoresizingMaskIntoConstraints = false
         buttonView.cd_alignBottomToParent(with: 0)
