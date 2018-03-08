@@ -125,9 +125,21 @@ open class CDAlertView: UIView {
         }
     }
 
+    public var textFieldKeyboardType: UIKeyboardType = .`default` {
+        didSet {
+            textField.keyboardType = textFieldKeyboardType
+        }
+    }
+
     public var textFieldAutocapitalizationType: UITextAutocapitalizationType = .none {
         didSet {
             textField.autocapitalizationType = textFieldAutocapitalizationType
+        }
+    }
+
+    public var textFieldAutocorrectionType: UITextAutocorrectionType = .default {
+        didSet {
+            textField.autocorrectionType = textFieldAutocorrectionType
         }
     }
 
