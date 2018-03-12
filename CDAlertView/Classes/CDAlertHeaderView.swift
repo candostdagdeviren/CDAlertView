@@ -21,7 +21,7 @@ private extension CDAlertViewType {
             return UIColor(red: 27/255, green: 169/255, blue: 225/255, alpha: 1)
         case .alarm:
             return UIColor(red: 196/255, green: 52/255, blue: 46/255, alpha: 1)
-        case .custom:
+        case .custom, .noImage:
             return nil
         }
     }
@@ -68,7 +68,7 @@ internal class CDAlertHeaderView: UIView {
         alertBackgroundColor.setFill()
         path.fill()
 
-        if hasRoundCorners == true {
+        if type?.hasImage() == true {
             let curve = UIBezierPath(arcCenter: CGPoint(x: rect.size.width/2, y: 28),
                                      radius: 28,
                                      startAngle:6.84 * CGFloat.pi / 6,
@@ -133,6 +133,8 @@ internal class CDAlertHeaderView: UIView {
             imageView.image = ImageHelper.loadImage(name: imageName)
         case .custom(let image):
             imageView.image = image
+        case .noImage:
+            break
         }
         
         imageView.contentMode = .center

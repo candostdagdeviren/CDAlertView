@@ -9,7 +9,18 @@
 import Foundation
 
 public enum CDAlertViewType {
-    case error, warning, success, notification, alarm, custom(image: UIImage)
+    case error, warning, success, notification, alarm, custom(image: UIImage), noImage
+    
+    // This is needed because we can't do a comparison of enums
+    // if it has an associated value.
+    func hasImage() -> Bool {
+        switch self {
+            case .noImage:
+                return false
+            default:
+                return true
+        }
+    }
 }
 
 fileprivate protocol CDAlertViewActionDelegate: class {
@@ -525,11 +536,15 @@ open class CDAlertView: UIView {
     private func createHeaderView() {
         headerView = CDAlertHeaderView(type: type, isIconFilled: isHeaderIconFilled)
         headerView.backgroundColor = UIColor.clear
-        headerView.hasShadow = hasShadow
         headerView.hasRoundCorners = hasRoundCorners
         headerView.alertBackgroundColor = alertBackgroundColor
-        headerView.circleFillColor = circleFillColor
-        if circleFillColor == .clear {
+        if type.hasImage() == true {
+            headerView.circleFillColor = circleFillColor
+            headerView.hasShadow = hasShadow
+        }
+        else {
+            headerView.hasShadow = false
+            headerView.circleFillColor = .clear
             headerHeight = constants.headerHeightWithoutCircle
         }
         popupView.addSubview(headerView)
@@ -553,9 +568,9 @@ open class CDAlertView: UIView {
                                                                 height: height),
                                             byRoundingCorners: [.bottomLeft, .bottomRight],
                                             cornerRadii: CGSize(width: 8.0, height: 8.0))
-        let roundLayer = CAShapeLayer()
-        roundLayer.path = roundCornersPath.cgPath
         if hasRoundCorners == true {
+            let roundLayer = CAShapeLayer()
+            roundLayer.path = roundCornersPath.cgPath
             buttonView.layer.mask = roundLayer
         }
         popupView.addSubview(buttonView)
