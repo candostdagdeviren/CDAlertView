@@ -7,7 +7,7 @@
 [![Platform](http://img.shields.io/badge/platform-ios-lightgrey.svg?style=flat)](https://developer.apple.com/resources/)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://raw.githubusercontent.com/candostdagdeviren/CDAlertView/master/LICENSE)
 
-CDAlertView is highly customizable alert popup written in Swift 3. Usage is similar to `UIAlertController`.
+CDAlertView is highly customizable alert popup written in Swift. Usage is similar to `UIAlertController`.
 
 ### Screenshots
 
@@ -101,7 +101,7 @@ alert.autoHideTime = 4.5 // This will hide alert box after 4.5 seconds
 
 `popupWidth: CGFloat` -> Width of the popup view
 
-`hasRoundedCorners` -> Apply rounded corners to alert view. Default is `true`.
+`hasRoundedCorners: Bool` -> Apply rounded corners to alert view. Default is `true`.
 
 `hasShadow: Bool` -> Apply shadows around the popup. Defualt is `true`.
 
