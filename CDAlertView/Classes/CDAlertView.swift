@@ -9,7 +9,7 @@
 import Foundation
 
 public enum CDAlertViewType {
-    case error, warning, success, notification, alarm, custom(image: UIImage), noImage
+    case error, warning, success, notification, alarm, noImage, custom(image: UIImage)
     
     // This is needed because we can't do a comparison of enums
     // if it has an associated value.

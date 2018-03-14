@@ -54,7 +54,7 @@ CDAlertView types:
 
 ```swift
 public enum CDAlertViewType {
-    case error, warning, success, notification, alarm, custom(image:UIImage)
+    case error, warning, success, notification, alarm, noImage, custom(image:UIImage)
 }
 ```
 
@@ -100,6 +100,8 @@ alert.autoHideTime = 4.5 // This will hide alert box after 4.5 seconds
 `alertBackgroundColor: UIColor` -> Sets popup's background color.
 
 `popupWidth: CGFloat` -> Width of the popup view
+
+`hasRoundedCorners` -> Apply rounded corners to alert view. Default is `true`.
 
 `hasShadow: Bool` -> Apply shadows around the popup. Defualt is `true`.
 
