@@ -487,7 +487,7 @@ open class CDAlertView: UIView {
 
 
     private func roundBottomOfCoverView() {
-        guard hasRoundCorners == false else {return}
+        guard hasRoundCorners == true else {return}
         let roundCornersPath = UIBezierPath(roundedRect: CGRect(x: 0.0,
                                                                 y: 0.0,
                                                                 width: popupWidth,
