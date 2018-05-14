@@ -18,7 +18,7 @@ CDAlertView is highly customizable alert popup written in Swift 3. Usage is simi
   s.source_files = 'CDAlertView/Classes/**/*'
 
   s.resource_bundles = {
-    'CDAlertView' => ['CDAlertView/Assets/Assets.xcassets']
+    'CDAlertView' => ['CDAlertView/Resources/Assets/*.*']
   }
 
   s.frameworks = 'UIKit'
