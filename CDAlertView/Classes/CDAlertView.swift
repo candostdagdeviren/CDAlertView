@@ -265,6 +265,7 @@ open class CDAlertView: UIView {
     private var messageLabel: UILabel = UILabel(frame: .zero)
     private var textField: UITextField = UITextField(frame: .zero)
     private var type: CDAlertViewType!
+    private var isKeyboardVisible: Bool = false
     weak private var hideTimer: Timer!
     public var headerHeight: CGFloat = CDAlertViewConstants().headerHeight
     
@@ -402,6 +403,10 @@ open class CDAlertView: UIView {
     }
 
     @objc func keyboardWillShow(_ notification: Notification) {
+        if isKeyboardVisible {
+            return
+        }
+        isKeyboardVisible = true
         guard let userInfo = notification.userInfo else {
             return
         }
@@ -414,12 +419,14 @@ open class CDAlertView: UIView {
         if coverViewWindowCoordinates.y <= (keyboardSize.minY - keyboardSize.height) {
             return
         }
+
         popupCenterYPositionBeforeKeyboard = popupView.center.y
         let difference = coverViewWindowCoordinates.y - (keyboardSize.minY - keyboardSize.height)
         popupView.center.y -= difference
     }
 
     @objc func keyboardWillHide(_ notification: Notification) {
+        self.isKeyboardVisible = false
         guard let initialY = self.popupCenterYPositionBeforeKeyboard else {
             return
         }
