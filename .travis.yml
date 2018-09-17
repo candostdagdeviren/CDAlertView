@@ -2,7 +2,7 @@
 # * http://www.objc.io/issue-6/travis-ci.html
 # * https://github.com/supermarin/xcpretty#usage
 
-osx_image: xcode9
+osx_image: xcode10
 language: objective-c
 xcode_workspace: Example/CDAlertViewExample.xcworkspace
 xcode_sdk: iphonesimulator10.0
