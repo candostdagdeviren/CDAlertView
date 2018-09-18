@@ -13,7 +13,7 @@ CDAlertView is highly customizable alert popup written in Swift 4.2. Usage is si
   s.source           = { :git => 'https://github.com/candostdagdeviren/CDAlertView.git', :tag => s.version.to_s }
   s.social_media_url = 'https://twitter.com/candostdagdevrn'
 
-  s.ios.deployment_target = '9.0'
+  s.ios.deployment_target = '10.0'
 
   s.source_files = 'CDAlertView/Classes/**/*'
   s.swift_version = '4.2'
