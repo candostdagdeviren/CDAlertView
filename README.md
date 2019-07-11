@@ -172,7 +172,7 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 ## Installation
 
-**This library supports Swift 4. Use `0.6.1` or older versions for Swift 3.1 support.**
+**This library supports Swift 5. Use `0.9.1` for Swift 4.2. Use `0.6.1` for Swift 3.1.**
 
 ### Using [CocoaPods](http://cocoapods.org)
 
