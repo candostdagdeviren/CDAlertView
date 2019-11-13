@@ -182,6 +182,8 @@ open class CDAlertView: UIView {
     }
 
     public var hasRoundCorners = true
+    
+    public var cornerRadius: CGFloat = 8.0
 
     public var customView: UIView?
 
@@ -500,8 +502,8 @@ open class CDAlertView: UIView {
                                                                 width: popupWidth,
                                                                 height: coverView.frame.size.height),
                                             byRoundingCorners: [.bottomLeft, .bottomRight],
-                                            cornerRadii: CGSize(width: 8.0,
-                                                                height: 8.0))
+                                            cornerRadii: CGSize(width: cornerRadius,
+                                                                height: cornerRadius))
         let roundLayer = CAShapeLayer()
         roundLayer.path = roundCornersPath.cgPath
         coverView.layer.mask = roundLayer
@@ -544,6 +546,7 @@ open class CDAlertView: UIView {
         headerView = CDAlertHeaderView(type: type, isIconFilled: isHeaderIconFilled)
         headerView.backgroundColor = UIColor.clear
         headerView.hasRoundCorners = hasRoundCorners
+        headerView.cornerRadius = cornerRadius
         headerView.alertBackgroundColor = alertBackgroundColor
         if type.hasImage() == true {
             headerView.circleFillColor = circleFillColor
@@ -574,7 +577,7 @@ open class CDAlertView: UIView {
                                                                 width: popupWidth,
                                                                 height: height),
                                             byRoundingCorners: [.bottomLeft, .bottomRight],
-                                            cornerRadii: CGSize(width: 8.0, height: 8.0))
+                                            cornerRadii: CGSize(width: cornerRadius, height: cornerRadius))
         if hasRoundCorners == true {
             let roundLayer = CAShapeLayer()
             roundLayer.path = roundCornersPath.cgPath

@@ -42,6 +42,7 @@ internal class CDAlertHeaderView: UIView {
     internal var alertBackgroundColor: UIColor = UIColor.white.withAlphaComponent(0.9)
     internal var hasShadow: Bool = true
     internal var hasRoundCorners = true
+    internal var cornerRadius: CGFloat = 8
     private var fillColor: UIColor!
     private var type: CDAlertViewType?
     private var imageView: UIImageView?
@@ -58,7 +59,7 @@ internal class CDAlertHeaderView: UIView {
     // MARK: UIView
     
     override func draw(_ rect: CGRect) {
-        var cornerRadii = CGSize(width: 8, height: 8)
+        var cornerRadii = CGSize(width: cornerRadius, height: cornerRadius)
         if hasRoundCorners == false {
             cornerRadii = CGSize(width: 0, height: 0)
         }

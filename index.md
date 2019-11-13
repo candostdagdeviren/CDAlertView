@@ -103,6 +103,8 @@ alert.autoHideTime = 4.5 // This will hide alert box after 4.5 seconds
 
 `hasRoundedCorners: Bool` -> Apply rounded corners to alert view. Default is `true`.
 
+`cornerRadius: CGFloat` -> The radius for the rounded corners. Default is `8.0`.
+
 `hasShadow: Bool` -> Apply shadows around the popup. Defualt is `true`.
 
 `circleFillColor: UIColor` -> Sets background color of header icon. (Color of circle area)
