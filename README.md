@@ -109,6 +109,8 @@ alert.autoHideTime = 4.5 // This will hide alert box after 4.5 seconds
 
 `isActionButtonsVertical: Bool` -> Alignes action buttons vertical. Default is `false`. Maximum number of horizontal buttons is 3.
 
+`canHideWhenTapBack` -> Hide self when tapped backgroundView. Default is `false`. 
+
 `hideAnimationDuration: TimeInterval` -> Sets the animation duration of hide animation
 
 `hideAnimations: CDAlertAnimationBlock` -> Sets the hiding animations depending on the `center`, `transform` and `alpha` values. You can create your animations by changing these values for alert popup.

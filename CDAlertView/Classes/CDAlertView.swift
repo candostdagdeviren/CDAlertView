@@ -185,6 +185,8 @@ open class CDAlertView: UIView {
 
     public var customView: UIView?
 
+    public var canHideWhenTapBack = false
+
     public var hideAnimations: CDAlertAnimationBlock?
 
     public var hideAnimationDuration: TimeInterval = 0.5
@@ -393,7 +395,7 @@ open class CDAlertView: UIView {
 
     open override func touchesEnded(_ touches: Set<UITouch>,
                                     with event: UIEvent?) {
-        if actions.count == 0 {
+        if actions.count == 0 || canHideWhenTapBack {
             touches.forEach { (touch) in
                 if touch.view == self.backgroundView {
                     self.hide(animations: self.hideAnimations, isPopupAnimated: true)
