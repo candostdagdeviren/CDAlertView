@@ -38,6 +38,7 @@
 		49A1B2091DEDA51800DF4686 /* CDAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A1B2051DEDA51800DF4686 /* CDAlertView.swift */; };
 		49A1B20A1DEDA51800DF4686 /* ImageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A1B2061DEDA51800DF4686 /* ImageHelper.swift */; };
 		49A1B20B1DEDA51800DF4686 /* LayoutConstraintsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A1B2071DEDA51800DF4686 /* LayoutConstraintsExtension.swift */; };
+		EA67FC392578DC0100B5E533 /* CDAlertViewType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA67FC382578DC0100B5E533 /* CDAlertViewType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +86,7 @@
 		49A1B2051DEDA51800DF4686 /* CDAlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDAlertView.swift; sourceTree = "<group>"; };
 		49A1B2061DEDA51800DF4686 /* ImageHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageHelper.swift; sourceTree = "<group>"; };
 		49A1B2071DEDA51800DF4686 /* LayoutConstraintsExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayoutConstraintsExtension.swift; sourceTree = "<group>"; };
+		EA67FC382578DC0100B5E533 /* CDAlertViewType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CDAlertViewType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -188,6 +190,7 @@
 			children = (
 				49A1B2041DEDA51800DF4686 /* CDAlertHeaderView.swift */,
 				49A1B2051DEDA51800DF4686 /* CDAlertView.swift */,
+				EA67FC382578DC0100B5E533 /* CDAlertViewType.swift */,
 				49A1B2061DEDA51800DF4686 /* ImageHelper.swift */,
 				49A1B2071DEDA51800DF4686 /* LayoutConstraintsExtension.swift */,
 			);
@@ -271,6 +274,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = 49A1B1DC1DEDA4A300DF4686;
@@ -331,6 +335,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				49A1B20B1DEDA51800DF4686 /* LayoutConstraintsExtension.swift in Sources */,
+				EA67FC392578DC0100B5E533 /* CDAlertViewType.swift in Sources */,
 				49A1B2091DEDA51800DF4686 /* CDAlertView.swift in Sources */,
 				49A1B2081DEDA51800DF4686 /* CDAlertHeaderView.swift in Sources */,
 				49A1B20A1DEDA51800DF4686 /* ImageHelper.swift in Sources */,

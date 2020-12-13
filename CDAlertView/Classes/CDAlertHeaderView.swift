@@ -8,25 +8,6 @@
 
 import Foundation
 
-private extension CDAlertViewType {
-    var fillColor: UIColor? {
-        switch self {
-        case .error:
-            return UIColor(red: 235/255, green: 61/255, blue: 65/255, alpha: 1)
-        case .success:
-            return UIColor(red: 65/255, green: 158/255, blue: 57/255, alpha: 1)
-        case .warning:
-            return UIColor(red: 255/255, green: 149/255, blue: 0/255, alpha: 1)
-        case .notification:
-            return UIColor(red: 27/255, green: 169/255, blue: 225/255, alpha: 1)
-        case .alarm:
-            return UIColor(red: 196/255, green: 52/255, blue: 46/255, alpha: 1)
-        case .custom, .noImage:
-            return nil
-        }
-    }
-}
-
 internal class CDAlertHeaderView: UIView {
 
     // MARK: Properties
@@ -87,11 +68,6 @@ internal class CDAlertHeaderView: UIView {
         innerCircle.fill()
 
         if hasShadow {
-            layer.shadowColor = UIColor.black.cgColor
-            layer.shadowOpacity = 0.2
-            layer.shadowRadius = 4
-            layer.shadowOffset = CGSize.zero
-            layer.masksToBounds = false
             let shadowPath = UIBezierPath()
             shadowPath.move(to: CGPoint(x: 0.0, y: rect.size.height))
             shadowPath.addLine(to: CGPoint(x: 0, y: 16))
@@ -106,7 +82,8 @@ internal class CDAlertHeaderView: UIView {
             shadowPath.addLine(to: CGPoint(x: rect.size.width-10, y: rect.size.height-5))
             shadowPath.addLine(to: CGPoint(x: 10, y: rect.size.height-5))
             shadowPath.close()
-            layer.shadowPath = shadowPath.cgPath
+            
+            self.setShadow(withPath: shadowPath)
         }
     }
     
@@ -116,27 +93,7 @@ internal class CDAlertHeaderView: UIView {
         guard let type = type else { return nil }
         
         let imageView = UIImageView(frame: .zero)
-        var imageName: String?
-        switch type {
-        case .error:
-            imageView.image = ImageHelper.loadImage(name: "error")
-        case .success:
-            imageView.image = ImageHelper.loadImage(name: "check")
-        case .warning:
-            imageName = isIconFilled ? "warningFilled" : "warningOutline"
-            imageView.image = ImageHelper.loadImage(name: imageName)
-        case .notification:
-            imageName = isIconFilled ? "notificationFilled" : "notificationOutline"
-            imageView.image = ImageHelper.loadImage(name: imageName)
-        case .alarm:
-            imageName = isIconFilled ? "alarmFilled" : "alarmOutline"
-            imageView.image = ImageHelper.loadImage(name: imageName)
-        case .custom(let image):
-            imageView.image = image
-        case .noImage:
-            break
-        }
-        
+        imageView.image = type.image(isIconFilled: self.isIconFilled)
         imageView.contentMode = .center
         addSubview(imageView)
         imageView.translatesAutoresizingMaskIntoConstraints = false
