@@ -3,7 +3,7 @@ Pod::Spec.new do |s|
   s.version          = '0.10.0'
   s.summary          = 'Highly customizable alert/notification/success/error/alarm popup'
   s.description      = <<-DESC
-CDAlertView is highly customizable alert popup written in Swift 4.2. Usage is similar to UIAlertController.
+CDAlertView is highly customizable alert popup written in Swift 5. Usage is similar to UIAlertController.
                        DESC
 
   s.homepage         = 'https://github.com/candostdagdeviren/CDAlertView'
@@ -13,10 +13,10 @@ CDAlertView is highly customizable alert popup written in Swift 4.2. Usage is si
   s.source           = { :git => 'https://github.com/candostdagdeviren/CDAlertView.git', :tag => s.version.to_s }
   s.social_media_url = 'https://twitter.com/candostdagdevrn'
 
-  s.ios.deployment_target = '10.0'
+  s.ios.deployment_target = '12.0'
 
   s.source_files = 'CDAlertView/Classes/**/*'
-  s.swift_version = '4.2'
+  s.swift_version = '5.0'
   s.resource_bundles = {
     'CDAlertView' => ['CDAlertView/Resources/Assets/*.*']
   }
