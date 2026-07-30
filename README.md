@@ -103,7 +103,7 @@ alert.autoHideTime = 4.5 // This will hide alert box after 4.5 seconds
 
 `hasRoundedCorners: Bool` -> Apply rounded corners to alert view. Default is `true`.
 
-`hasShadow: Bool` -> Apply shadows around the popup. Defualt is `true`.
+`hasShadow: Bool` -> Apply shadows around the popup. Default is `true`.
 
 `circleFillColor: UIColor` -> Sets background color of header icon. (Color of circle area)
 
@@ -143,7 +143,7 @@ If you enabled text field with setting `isTextFieldHidden` property to `false`, 
 
 ### Advanced action initialization:
 
-`font`, `textColor`, `backgroundColor`, `handler` are all optional and has default parameter values. You can initilize with them or set them after initialization.
+`font`, `textColor`, `backgroundColor`, `handler` are all optional and has default parameter values. You can initialize with them or set them after initialization.
 
 ```swift
 let action = CDAlertViewAction(title: "Action Title", font: UIFont.yourCustomFont, textColor: UIColor.yourTextColor, backgroundColor: UIColor.yourBackgroundColor, handler: { action in })
